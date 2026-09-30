@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema Trading — Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0b0f17;
+    --bg-card: #121826;
+    --bg-card-2: #161d2e;
+    --border: #232b3d;
+    --text: #e7ecf5;
+    --text-dim: #8b97ad;
+    --blue: #4f8bff;
+    --purple: #b98bff;
+    --green: #35c98f;
+    --red: #ff5c72;
+    --amber: #ffb648;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: radial-gradient(1200px 600px at 20% -10%, #16203a 0%, var(--bg) 55%);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 24px 16px 64px;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+
+  header { margin-bottom: 28px; }
+  header h1 { font-size: 1.5rem; margin: 0 0 4px; letter-spacing: -0.01em; }
+  header .sub { color: var(--text-dim); font-size: 0.9rem; }
+  .aggiornato { color: var(--text-dim); font-size: 0.8rem; margin-top: 6px; }
+  .aggiornato .pallino { display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--green); margin-right:6px; }
+
+  .griglia-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+  .card-overview {
+    background: linear-gradient(155deg, var(--bg-card-2), var(--bg-card));
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+  }
+  .card-overview .etichetta { color: var(--text-dim); font-size: 0.78rem; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 8px; }
+  .card-overview .valore { font-size: 1.7rem; font-weight: 650; letter-spacing: -0.02em; }
+  .card-overview .variazione { font-size: 0.85rem; margin-top: 4px; font-weight: 600; }
+  .pos { color: var(--green); }
+  .neg { color: var(--red); }
+  .neutro { color: var(--text-dim); }
+
+  section.fronte {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    margin-bottom: 24px;
+  }
+  .fronte-header { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+  .fronte-header h2 { margin: 0; font-size: 1.15rem; }
+  .badge { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:8px; vertical-align: middle; }
+  .badge-blu { background: var(--blue); }
+  .badge-viola { background: var(--purple); }
+  .fronte-sub { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 18px; }
+
+  .fronte-corpo { display: grid; grid-template-columns: 1.3fr 1fr; gap: 22px; }
+  @media (max-width: 760px) { .fronte-corpo { grid-template-columns: 1fr; } }
+
+  .stat-riga { display: flex; gap: 22px; flex-wrap: wrap; margin-bottom: 16px; }
+  .stat { min-width: 90px; }
+  .stat .n { font-size: 1.25rem; font-weight: 650; }
+  .stat .l { color: var(--text-dim); font-size: 0.75rem; text-transform: uppercase; letter-spacing: .03em; }
+
+  .barra-successo { height: 8px; border-radius: 4px; background: #1e2536; overflow: hidden; margin: 4px 0 18px; }
+  .barra-successo .riempi { height: 100%; background: linear-gradient(90deg, var(--red), var(--amber) 45%, var(--green) 75%); }
+
+  table.strumenti { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  table.strumenti th { text-align: left; color: var(--text-dim); font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: .03em; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+  table.strumenti td { padding: 7px 8px; border-bottom: 1px solid #1a2133; }
+  table.strumenti .mini-barra { display:inline-block; width:60px; height:6px; border-radius:3px; background:#1e2536; overflow:hidden; vertical-align:middle; margin-left:6px; }
+  table.strumenti .mini-barra i { display:block; height:100%; background: var(--green); }
+
+  .aperte-lista { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+  .aperte-vuoto { color: var(--text-dim); font-size: 0.85rem; font-style: italic; }
+  .op-aperta {
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--bg-card-2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 9px 12px; font-size: 0.85rem;
+  }
+  .dir { font-weight: 700; font-size: 0.72rem; padding: 2px 8px; border-radius: 6px; }
+  .dir-long { background: rgba(53,201,143,.15); color: var(--green); }
+  .dir-short { background: rgba(255,92,114,.15); color: var(--red); }
+
+  .grafico-box { position: relative; height: 180px; margin-bottom: 10px; }
+
+  .conto-reale {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px 20px; margin-bottom: 24px; font-size: 0.9rem;
+  }
+  .conto-reale .pallino-live { width:9px; height:9px; border-radius:50%; background: var(--green); box-shadow: 0 0 0 3px rgba(53,201,143,.18); }
+
+  .storico-wrap { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+  .storico-wrap h2 { margin: 0 0 14px; font-size: 1.15rem; }
+  .filtri { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .filtro-btn {
+    background: var(--bg-card-2); border: 1px solid var(--border); color: var(--text-dim);
+    padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; transition: .15s;
+  }
+  .filtro-btn.attivo { background: var(--blue); color: white; border-color: var(--blue); }
+  table.storico { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  table.storico th { text-align: left; color: var(--text-dim); font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: .03em; padding: 8px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg-card); }
+  table.storico td { padding: 8px; border-bottom: 1px solid #1a2133; white-space: nowrap; }
+  table.storico tbody tr:hover { background: rgba(255,255,255,.02); }
+  .tabella-scroll { max-height: 480px; overflow-y: auto; overflow-x: auto; }
+  table.storico { min-width: 480px; }
+  .esito-badge { font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 6px; }
+  .esito-win { background: rgba(53,201,143,.15); color: var(--green); }
+  .esito-loss { background: rgba(255,92,114,.15); color: var(--red); }
+  .esito-open { background: rgba(255,182,72,.15); color: var(--amber); }
+
+  footer { text-align: center; color: var(--text-dim); font-size: 0.78rem; margin-top: 30px; line-height: 1.6; }
+  .errore { color: var(--red); text-align:center; padding: 40px 20px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>📊 Sistema Trading — Dashboard</h1>
+    <div class="sub">Analisi e forward-test automatici. Nessuna operazione reale su denaro vero (tranne dove indicato: conto demo).</div>
+    <div class="aggiornato" id="aggiornato"><span class="pallino"></span>Caricamento...</div>
+  </header>
+
+  <div id="contenuto"></div>
+
+  <footer>
+    Sistema costruito su GitHub Actions · dati aggiornati automaticamente ogni 30 minuti circa<br>
+    Nessuna credenziale o dato sensibile è presente in questa pagina o nei dati che carica.
+  </footer>
+</div>
+
+<script>
+const EUR = n => (n === null || n === undefined) ? "—" : n.toLocaleString("it-IT", {minimumFractionDigits: 2, maximumFractionDigits: 2}) + "€";
+const PCT = n => (n === null || n === undefined) ? "—" : (n > 0 ? "+" : "") + n.toLocaleString("it-IT", {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "%";
+const classeVar = n => n > 0 ? "pos" : (n < 0 ? "neg" : "neutro");
+const fmtData = iso => {
+  if (!iso) return "—";
+  try {
+    const d = new Date(iso);
+    return d.toLocaleDateString("it-IT", {day:"2-digit", month:"2-digit", year:"2-digit"}) + " " +
+           d.toLocaleTimeString("it-IT", {hour:"2-digit", minute:"2-digit"});
+  } catch(e) { return iso; }
+};
+
+function costruisciGraficoCapitale(canvasId, punti, colore) {
+  const ctx = document.getElementById(canvasId);
+  const labels = punti.map(p => p.data ? fmtData(p.data).split(" ")[0] : "Inizio");
+  const valori = punti.map(p => p.capitale);
+  new Chart(ctx, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        data: valori,
+        borderColor: colore,
+        backgroundColor: colore + "22",
+        fill: true,
+        tension: 0.25,
+        pointRadius: 0,
+        borderWidth: 2,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => EUR(c.parsed.y) } } },
+      scales: {
+        x: { display: false },
+        y: { ticks: { color: "#8b97ad", font: { size: 10 } }, grid: { color: "#1a2133" } }
+      }
+    }
+  });
+}
+
+function sezioneFronte(chiave, dati, colore, badgeClasse, descrizione) {
+  const successoNum = dati.percentuale_successo ?? 0;
+  const strumentiRighe = dati.per_strumento ? Object.entries(dati.per_strumento).map(([nome, s]) => `
+    <tr>
+      <td>${nome}</td>
+      <td>${s.vinte} / ${s.perse}</td>
+      <td>${s.percentuale_successo}%<span class="mini-barra"><i style="width:${s.percentuale_successo}%"></i></span></td>
+    </tr>`).join("") : "";
+
+  let mensileRighe = "";
+  if (dati.storico_mensile) {
+    mensileRighe = dati.storico_mensile.map(m => `
+      <tr>
+        <td>${m.mese}</td>
+        <td class="${classeVar(m.rendimento_pct)}">${PCT(m.rendimento_pct)}</td>
+        <td>${m.long} long / ${m.short} short</td>
+        <td>${EUR(m.capitale_dopo)}</td>
+      </tr>`).join("");
+  }
+
+  const aperte = dati.posizioni_aperte || [];
+  const aperteHtml = aperte.length ? aperte.map(p => `
+    <div class="op-aperta">
+      <span>${p.strumento}</span>
+      <span class="dir ${p.direzione === 'LONG' ? 'dir-long' : 'dir-short'}">${p.direzione}</span>
+    </div>`).join("") : '<div class="aperte-vuoto">Nessuna posizione aperta al momento</div>';
+
+  return `
+  <section class="fronte">
+    <div class="fronte-header">
+      <h2><span class="badge ${badgeClasse}"></span>${dati.nome}</h2>
+    </div>
+    <div class="fronte-sub">${descrizione}</div>
+    <div class="fronte-corpo">
+      <div>
+        <div class="grafico-box"><canvas id="grafico-${chiave}"></canvas></div>
+        <div class="stat-riga">
+          <div class="stat"><div class="n">${EUR(dati.capitale_attuale)}</div><div class="l">Capitale</div></div>
+          <div class="stat"><div class="n ${classeVar(dati.rendimento_pct)}">${PCT(dati.rendimento_pct)}</div><div class="l">Rendimento</div></div>
+          <div class="stat"><div class="n">${dati.drawdown_pct}%</div><div class="l">Drawdown dal picco</div></div>
+        </div>
+        <div>
+          <div class="stat-riga" style="margin-bottom:4px;">
+            <div class="stat"><div class="n">${successoNum}%</div><div class="l">Successo totale</div></div>
+          </div>
+          <div class="barra-successo"><div class="riempi" style="width:${successoNum}%"></div></div>
+        </div>
+        <div style="margin-top:16px;">
+          <div class="l" style="color:var(--text-dim); font-size:0.75rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:8px;">Posizioni aperte ora</div>
+          <div class="aperte-lista">${aperteHtml}</div>
+        </div>
+      </div>
+      <div>
+        ${dati.per_strumento ? `
+        <div class="l" style="color:var(--text-dim); font-size:0.75rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:8px;">Per strumento</div>
+        <table class="strumenti">
+          <thead><tr><th>Strumento</th><th>V / P</th><th>Successo</th></tr></thead>
+          <tbody>${strumentiRighe}</tbody>
+        </table>` : `
+        <div class="l" style="color:var(--text-dim); font-size:0.75rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:8px;">Storico mensile</div>
+        <table class="strumenti">
+          <thead><tr><th>Mese</th><th>Rend.</th><th>Posizioni</th><th>Capitale</th></tr></thead>
+          <tbody>${mensileRighe}</tbody>
+        </table>`}
+      </div>
+    </div>
+  </section>`;
+}
+
+function renderStorico(operazioni) {
+  const wrap = document.createElement("div");
+  wrap.className = "storico-wrap";
+  wrap.innerHTML = `
+    <h2>📜 Storico operazioni — Fronte 1</h2>
+    <div class="filtri" id="filtri"></div>
+    <div class="tabella-scroll">
+      <table class="storico">
+        <thead><tr><th>Strumento</th><th>Direzione</th><th>Apertura</th><th>Chiusura</th><th>Esito</th></tr></thead>
+        <tbody id="corpo-storico"></tbody>
+      </table>
+    </div>`;
+
+  const strumenti = ["Tutti", ...new Set(operazioni.map(o => o.strumento))];
+  const filtriEl = wrap.querySelector("#filtri");
+  let filtroAttivo = "Tutti";
+
+  function disegnaRighe() {
+    const corpo = wrap.querySelector("#corpo-storico");
+    const filtrate = filtroAttivo === "Tutti" ? operazioni : operazioni.filter(o => o.strumento === filtroAttivo);
+    corpo.innerHTML = filtrate.map(o => {
+      let esitoHtml;
+      if (o.stato === "aperta") esitoHtml = '<span class="esito-badge esito-open">APERTA</span>';
+      else if (o.esito === "take profit") esitoHtml = '<span class="esito-badge esito-win">TAKE PROFIT</span>';
+      else esitoHtml = '<span class="esito-badge esito-loss">STOP LOSS</span>';
+      return `<tr>
+        <td>${o.strumento}</td>
+        <td><span class="dir ${o.direzione === 'LONG' ? 'dir-long' : 'dir-short'}">${o.direzione}</span></td>
+        <td>${fmtData(o.data_apertura)}</td>
+        <td>${fmtData(o.data_chiusura)}</td>
+        <td>${esitoHtml}</td>
+      </tr>`;
+    }).join("");
+  }
+
+  strumenti.forEach(s => {
+    const btn = document.createElement("button");
+    btn.className = "filtro-btn" + (s === "Tutti" ? " attivo" : "");
+    btn.textContent = s;
+    btn.onclick = () => {
+      filtroAttivo = s;
+      filtriEl.querySelectorAll(".filtro-btn").forEach(b => b.classList.remove("attivo"));
+      btn.classList.add("attivo");
+      disegnaRighe();
+    };
+    filtriEl.appendChild(btn);
+  });
+
+  disegnaRighe();
+  return wrap;
+}
+
+async function carica() {
+  try {
+    const risposta = await fetch("dashboard_data.json?_=" + Date.now());
+    const dati = await risposta.json();
+
+    document.getElementById("aggiornato").innerHTML =
+      `<span class="pallino"></span>Ultimo aggiornamento: ${fmtData(dati.generato_il)}`;
+
+    const contenuto = document.getElementById("contenuto");
+
+    const reale = dati.conto_reale || {};
+    const realeHtml = reale.disponibile ? `
+      <div class="conto-reale">
+        <span class="pallino-live"></span>
+        <strong>Conto demo reale (cTrader)</strong>
+        <span style="color:var(--text-dim)">Saldo:</span> <strong>${EUR(reale.saldo)}</strong>
+        <span style="color:var(--text-dim)">·</span>
+        <span style="color:var(--text-dim)">Strumenti collegati: ${reale.strumenti_collegati.join(", ")}</span>
+        <span style="color:var(--text-dim)">·</span>
+        <span style="color:var(--text-dim)">Posizioni aperte: ${reale.posizioni_aperte.length}</span>
+      </div>` : `
+      <div class="conto-reale"><span style="color:var(--text-dim)">Conto reale non raggiungibile in questo aggiornamento.</span></div>`;
+
+    contenuto.innerHTML = `
+      <div class="griglia-overview">
+        <div class="card-overview">
+          <div class="etichetta">Fronte 1 — Virtuale</div>
+          <div class="valore">${EUR(dati.fronte1.capitale_attuale)}</div>
+          <div class="variazione ${classeVar(dati.fronte1.rendimento_pct)}">${PCT(dati.fronte1.rendimento_pct)}</div>
+        </div>
+        <div class="card-overview">
+          <div class="etichetta">Conto demo reale</div>
+          <div class="valore">${EUR(reale.saldo)}</div>
+          <div class="variazione neutro">GBP/JPY su cTrader</div>
+        </div>
+        <div class="card-overview">
+          <div class="etichetta">Fronte 3 — Momentum</div>
+          <div class="valore">${EUR(dati.fronte3.capitale_attuale)}</div>
+          <div class="variazione ${classeVar(dati.fronte3.rendimento_pct)}">${PCT(dati.fronte3.rendimento_pct)}</div>
+        </div>
+        <div class="card-overview">
+          <div class="etichetta">Capitale virtuale totale</div>
+          <div class="valore">${EUR(dati.fronte1.capitale_attuale + dati.fronte3.capitale_attuale)}</div>
+          <div class="variazione neutro">Fronte 1 + Fronte 3</div>
+        </div>
+      </div>
+
+      ${realeHtml}
+
+      ${sezioneFronte("f1", dati.fronte1, "#4f8bff", "badge-blu",
+        "5 strumenti, strategia Incrocio Medie Mobili. GBP/JPY eseguito anche realmente su conto demo.")}
+      ${sezioneFronte("f3", dati.fronte3, "#b98bff", "badge-viola",
+        "108 strumenti in portafoglio, ribilanciato una volta al mese (Time Series Momentum).")}
+    `;
+
+    costruisciGraficoCapitale("grafico-f1", dati.fronte1.curva_capitale, "#4f8bff");
+    costruisciGraficoCapitale("grafico-f3", dati.fronte3.curva_capitale, "#b98bff");
+
+    contenuto.appendChild(renderStorico(dati.fronte1.storico_operazioni));
+
+  } catch (errore) {
+    document.getElementById("contenuto").innerHTML =
+      `<div class="errore">Non riesco a caricare i dati (${errore.message}). Riprova tra qualche minuto.</div>`;
+    document.getElementById("aggiornato").textContent = "Errore di caricamento";
+  }
+}
+
+carica();
+</script>
+</body>
+</html>
