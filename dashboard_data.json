@@ -1,15 +1,15 @@
 {
-  "generato_il": "2026-10-01T07:38:52.159497+00:00",
+  "generato_il": "2026-10-01T15:18:25.185769+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
-    "capitale_attuale": 1989.94,
+    "capitale_attuale": 2029.48,
     "capitale_massimo": 2229.59,
-    "rendimento_pct": -0.5,
-    "drawdown_pct": 10.75,
-    "operazioni_vinte": 14,
+    "rendimento_pct": 1.47,
+    "drawdown_pct": 8.98,
+    "operazioni_vinte": 15,
     "operazioni_perse": 26,
-    "percentuale_successo": 35.0,
+    "percentuale_successo": 36.6,
     "per_strumento": {
       "Oro": {
         "vinte": 1,
@@ -37,19 +37,19 @@
         "percentuale_successo": 42.9
       },
       "ETF Petrolio & Gas": {
-        "vinte": 4,
+        "vinte": 5,
         "perse": 4,
-        "percentuale_successo": 50.0
+        "percentuale_successo": 55.6
       }
     },
     "posizioni_aperte": [
       {
-        "strumento": "ETF Petrolio & Gas",
-        "direzione": "LONG",
-        "data_apertura": "2026-09-30T15:30:00-04:00",
-        "prezzo_ingresso": 179.25999450683594,
-        "stop_loss": 177.45731789725167,
-        "take_profit": 182.86534772600447
+        "strumento": "GBP/JPY",
+        "direzione": "SHORT",
+        "data_apertura": "2026-10-01T15:00:00+01:00",
+        "prezzo_ingresso": 208.38800048828125,
+        "stop_loss": 208.94010598318917,
+        "take_profit": 207.2837894984654
       }
     ],
     "curva_capitale": [
@@ -216,17 +216,30 @@
       {
         "data": "2026-09-29T08:00:00+01:00",
         "capitale": 1989.94
+      },
+      {
+        "data": "2026-10-01T10:30:00-04:00",
+        "capitale": 2029.48
       }
     ],
     "storico_operazioni": [
+      {
+        "id": 54,
+        "strumento": "GBP/JPY",
+        "direzione": "SHORT",
+        "data_apertura": "2026-10-01T15:00:00+01:00",
+        "data_chiusura": null,
+        "stato": "aperta",
+        "esito": null
+      },
       {
         "id": 53,
         "strumento": "ETF Petrolio & Gas",
         "direzione": "LONG",
         "data_apertura": "2026-09-30T15:30:00-04:00",
-        "data_chiusura": null,
-        "stato": "aperta",
-        "esito": null
+        "data_chiusura": "2026-10-01T10:30:00-04:00",
+        "stato": "chiusa",
+        "esito": "take profit"
       },
       {
         "id": 52,
@@ -701,13 +714,13 @@
   "fronte3": {
     "nome": "Time Series Momentum (portafoglio)",
     "capitale_iniziale": 2000.0,
-    "capitale_attuale": 1989.53,
+    "capitale_attuale": 1982.85,
     "capitale_massimo": 2000.0,
-    "rendimento_pct": -0.52,
-    "drawdown_pct": 0.52,
-    "mesi_processati": 1,
+    "rendimento_pct": -0.86,
+    "drawdown_pct": 0.86,
+    "mesi_processati": 2,
     "mesi_positivi": 0,
-    "mesi_negativi": 1,
+    "mesi_negativi": 2,
     "percentuale_successo": 0.0,
     "curva_capitale": [
       {
@@ -717,9 +730,20 @@
       {
         "data": "2026-08",
         "capitale": 1989.53
+      },
+      {
+        "data": "2026-09",
+        "capitale": 1982.85
       }
     ],
     "storico_mensile": [
+      {
+        "mese": "2026-09",
+        "rendimento_pct": -0.34,
+        "long": 73,
+        "short": 35,
+        "capitale_dopo": 1982.85
+      },
       {
         "mese": "2026-08",
         "rendimento_pct": -0.52,
@@ -733,7 +757,12 @@
     "disponibile": true,
     "broker": "Pepperstone (cTrader) - CONTO DEMO, nessun soldo vero",
     "saldo": 944.5,
-    "posizioni_aperte": [],
+    "posizioni_aperte": [
+      {
+        "strumento": "GBPJPY",
+        "direzione": "SHORT"
+      }
+    ],
     "strumenti_collegati": [
       "GBP/JPY"
     ]
