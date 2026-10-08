@@ -1,15 +1,15 @@
 {
-  "generato_il": "2026-10-08T12:15:06.964738+00:00",
+  "generato_il": "2026-10-08T13:56:08.717825+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
-    "capitale_attuale": 2046.68,
+    "capitale_attuale": 2025.92,
     "capitale_massimo": 2229.59,
-    "rendimento_pct": 2.33,
-    "drawdown_pct": 8.2,
+    "rendimento_pct": 1.3,
+    "drawdown_pct": 9.14,
     "operazioni_vinte": 16,
-    "operazioni_perse": 27,
-    "percentuale_successo": 37.2,
+    "operazioni_perse": 28,
+    "percentuale_successo": 36.4,
     "per_strumento": {
       "Oro": {
         "vinte": 1,
@@ -38,20 +38,11 @@
       },
       "ETF Petrolio & Gas": {
         "vinte": 5,
-        "perse": 4,
-        "percentuale_successo": 55.6
+        "perse": 5,
+        "percentuale_successo": 50.0
       }
     },
-    "posizioni_aperte": [
-      {
-        "strumento": "ETF Petrolio & Gas",
-        "direzione": "SHORT",
-        "data_apertura": "2026-10-07T15:30:00-04:00",
-        "prezzo_ingresso": 188.2100067138672,
-        "stop_loss": 189.88679340907507,
-        "take_profit": 184.85643332345145
-      }
-    ],
+    "posizioni_aperte": [],
     "curva_capitale": [
       {
         "data": null,
@@ -228,6 +219,10 @@
       {
         "data": "2026-10-06T13:00:00+01:00",
         "capitale": 2046.68
+      },
+      {
+        "data": "2026-10-08T09:30:00-04:00",
+        "capitale": 2025.92
       }
     ],
     "storico_operazioni": [
@@ -236,9 +231,9 @@
         "strumento": "ETF Petrolio & Gas",
         "direzione": "SHORT",
         "data_apertura": "2026-10-07T15:30:00-04:00",
-        "data_chiusura": null,
-        "stato": "aperta",
-        "esito": null
+        "data_chiusura": "2026-10-08T09:30:00-04:00",
+        "stato": "chiusa",
+        "esito": "stop loss"
       },
       {
         "id": 55,
@@ -786,6 +781,7 @@
     "posizioni_aperte": [],
     "strumenti_collegati": [
       "GBP/JPY"
-    ]
+    ],
+    "token_giorni_rimasti": 30.3
   }
 }
