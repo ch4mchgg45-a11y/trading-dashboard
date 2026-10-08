@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sistema Trading — Dashboard</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <style>
   :root {
@@ -30,17 +31,50 @@
   }
   .wrap { max-width: 1100px; margin: 0 auto; }
 
-  header { margin-bottom: 28px; }
-  header h1 { font-size: 1.5rem; margin: 0 0 4px; letter-spacing: -0.01em; }
-  header .sub { color: var(--text-dim); font-size: 0.9rem; }
-  .aggiornato { color: var(--text-dim); font-size: 0.8rem; margin-top: 6px; }
+  header { margin-bottom: 20px; }
+  .header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .header-titolo { display: flex; align-items: center; gap: 12px; }
+  .header-titolo img { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; }
+  header h1 { font-size: 1.4rem; margin: 0 0 2px; letter-spacing: -0.01em; }
+  header .sub { color: var(--text-dim); font-size: 0.85rem; }
+  .aggiornato { color: var(--text-dim); font-size: 0.8rem; margin-top: 10px; }
   .aggiornato .pallino { display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--green); margin-right:6px; }
+
+  .btn-controllo {
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    color: white; border: none; border-radius: 10px;
+    padding: 11px 20px; font-size: 0.88rem; font-weight: 650; cursor: pointer;
+    white-space: nowrap; transition: opacity .15s, transform .1s;
+    box-shadow: 0 4px 14px rgba(79,139,255,.25);
+  }
+  .btn-controllo:hover { opacity: 0.9; }
+  .btn-controllo:active { transform: scale(0.98); }
+  .btn-controllo:disabled { opacity: 0.6; cursor: default; }
+
+  .pannello-controllo {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin: 18px 0 28px;
+  }
+  .pc-stato { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .pc-pallino { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+  .pc-pallino.ok { background: var(--green); box-shadow: 0 0 0 4px rgba(53,201,143,.18); }
+  .pc-pallino.warn { background: var(--amber); box-shadow: 0 0 0 4px rgba(255,182,72,.18); }
+  .pc-titolo { font-size: 1.05rem; font-weight: 650; }
+  .pc-sotto { color: var(--text-dim); font-size: 0.78rem; margin: 2px 0 14px 21px; }
+  .pc-lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+  .pc-lista li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; line-height: 1.4; }
+  .pc-segno { flex-shrink: 0; width: 18px; height: 18px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 800; margin-top: 1px; }
+  .pc-segno.ok { background: rgba(53,201,143,.15); color: var(--green); }
+  .pc-segno.ko { background: rgba(255,92,114,.15); color: var(--red); }
 
   .griglia-overview {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 14px;
-    margin-bottom: 36px;
+    margin-bottom: 24px;
   }
   .card-overview {
     background: linear-gradient(155deg, var(--bg-card-2), var(--bg-card));
@@ -48,6 +82,8 @@
     border-radius: var(--radius);
     padding: 18px 20px;
   }
+  .card-overview.principale { grid-column: 1 / -1; }
+  .card-overview.principale .valore { font-size: 2.1rem; }
   .card-overview .etichetta { color: var(--text-dim); font-size: 0.78rem; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 8px; }
   .card-overview .valore { font-size: 1.7rem; font-weight: 650; letter-spacing: -0.02em; }
   .card-overview .variazione { font-size: 0.85rem; margin-top: 4px; font-weight: 600; }
@@ -60,31 +96,24 @@
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 22px;
-    margin-bottom: 24px;
+    margin-bottom: 18px;
   }
   .fronte-header { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
-  .fronte-header h2 { margin: 0; font-size: 1.15rem; }
+  .fronte-header h2 { margin: 0; font-size: 1.1rem; }
   .badge { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:8px; vertical-align: middle; }
   .badge-blu { background: var(--blue); }
   .badge-viola { background: var(--purple); }
-  .fronte-sub { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 18px; }
-
-  .fronte-corpo { display: grid; grid-template-columns: 1.3fr 1fr; gap: 22px; }
-  @media (max-width: 760px) { .fronte-corpo { grid-template-columns: 1fr; } }
+  .fronte-sub { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 16px; }
 
   .stat-riga { display: flex; gap: 22px; flex-wrap: wrap; margin-bottom: 16px; }
   .stat { min-width: 90px; }
   .stat .n { font-size: 1.25rem; font-weight: 650; }
   .stat .l { color: var(--text-dim); font-size: 0.75rem; text-transform: uppercase; letter-spacing: .03em; }
 
-  .barra-successo { height: 8px; border-radius: 4px; background: #1e2536; overflow: hidden; margin: 4px 0 18px; }
+  .barra-successo { height: 8px; border-radius: 4px; background: #1e2536; overflow: hidden; margin: 4px 0 16px; }
   .barra-successo .riempi { height: 100%; background: linear-gradient(90deg, var(--red), var(--amber) 45%, var(--green) 75%); }
 
-  table.strumenti { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-  table.strumenti th { text-align: left; color: var(--text-dim); font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: .03em; padding: 6px 8px; border-bottom: 1px solid var(--border); }
-  table.strumenti td { padding: 7px 8px; border-bottom: 1px solid #1a2133; }
-  table.strumenti .mini-barra { display:inline-block; width:60px; height:6px; border-radius:3px; background:#1e2536; overflow:hidden; vertical-align:middle; margin-left:6px; }
-  table.strumenti .mini-barra i { display:block; height:100%; background: var(--green); }
+  .grafico-box { position: relative; height: 150px; margin-bottom: 14px; }
 
   .aperte-lista { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
   .aperte-vuoto { color: var(--text-dim); font-size: 0.85rem; font-style: italic; }
@@ -97,17 +126,35 @@
   .dir-long { background: rgba(53,201,143,.15); color: var(--green); }
   .dir-short { background: rgba(255,92,114,.15); color: var(--red); }
 
-  .grafico-box { position: relative; height: 180px; margin-bottom: 10px; }
+  details.dettagli { margin-top: 14px; border-top: 1px solid var(--border); padding-top: 14px; }
+  details.dettagli summary {
+    cursor: pointer; color: var(--text-dim); font-size: 0.8rem; font-weight: 650;
+    text-transform: uppercase; letter-spacing: .03em; list-style: none; user-select: none;
+  }
+  details.dettagli summary::-webkit-details-marker { display: none; }
+  details.dettagli summary::before { content: "▸ "; display: inline-block; transition: transform .15s; }
+  details.dettagli[open] summary::before { transform: rotate(90deg); }
+  details.dettagli .dettagli-corpo { margin-top: 14px; }
+
+  table.strumenti { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  table.strumenti th { text-align: left; color: var(--text-dim); font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: .03em; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+  table.strumenti td { padding: 7px 8px; border-bottom: 1px solid #1a2133; }
+  table.strumenti .mini-barra { display:inline-block; width:60px; height:6px; border-radius:3px; background:#1e2536; overflow:hidden; vertical-align:middle; margin-left:6px; }
+  table.strumenti .mini-barra i { display:block; height:100%; background: var(--green); }
 
   .conto-reale {
     display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
     background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 16px 20px; margin-bottom: 24px; font-size: 0.9rem;
+    padding: 16px 20px; margin-bottom: 18px; font-size: 0.9rem;
   }
   .conto-reale .pallino-live { width:9px; height:9px; border-radius:50%; background: var(--green); box-shadow: 0 0 0 3px rgba(53,201,143,.18); }
 
-  .storico-wrap { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
-  .storico-wrap h2 { margin: 0 0 14px; font-size: 1.15rem; }
+  .storico-wrap { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; margin-top: 6px; }
+  .storico-wrap > summary { margin: 0; font-size: 1.05rem; cursor: pointer; list-style: none; user-select: none; display: flex; align-items: center; gap: 8px; }
+  .storico-wrap > summary::-webkit-details-marker { display: none; }
+  .storico-wrap > summary::before { content: "▸"; display: inline-block; transition: transform .15s; color: var(--text-dim); font-size: 0.85rem; }
+  .storico-wrap[open] > summary::before { transform: rotate(90deg); }
+  .storico-corpo { margin-top: 16px; }
   .filtri { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
   .filtro-btn {
     background: var(--bg-card-2); border: 1px solid var(--border); color: var(--text-dim);
@@ -132,10 +179,20 @@
 <body>
 <div class="wrap">
   <header>
-    <h1>📊 Sistema Trading — Dashboard</h1>
-    <div class="sub">Analisi e forward-test automatici. Nessuna operazione reale su denaro vero (tranne dove indicato: conto demo).</div>
+    <div class="header-top">
+      <div class="header-titolo">
+        <img src="favicon.svg" alt="">
+        <div>
+          <h1>Sistema Trading</h1>
+          <div class="sub">Analisi e forward-test automatici. Nessuna operazione reale su denaro vero (tranne dove indicato: conto demo).</div>
+        </div>
+      </div>
+      <button class="btn-controllo" id="btn-controllo" onclick="controllaOra()">🔍 Controlla ora</button>
+    </div>
     <div class="aggiornato" id="aggiornato"><span class="pallino"></span>Caricamento...</div>
   </header>
+
+  <div id="pannello-controllo"></div>
 
   <div id="contenuto"></div>
 
@@ -157,6 +214,108 @@ const fmtData = iso => {
            d.toLocaleTimeString("it-IT", {hour:"2-digit", minute:"2-digit"});
   } catch(e) { return iso; }
 };
+
+// ------------------- PANNELLO DI CONTROLLO -------------------
+
+function calcolaControlli(dati) {
+  const controlli = [];
+  const ora = Date.now();
+
+  const oreUltimoAggiornamento = (ora - new Date(dati.generato_il)) / 3600000;
+  controlli.push({
+    ok: oreUltimoAggiornamento < 12,
+    testo: oreUltimoAggiornamento < 12
+      ? `Il sistema ha girato di recente (ultimo aggiornamento ${Math.round(oreUltimoAggiornamento)} ore fa)`
+      : `Nessun aggiornamento da ${Math.round(oreUltimoAggiornamento)} ore — il sistema potrebbe essersi fermato`
+  });
+
+  const reale = dati.conto_reale || {};
+  controlli.push({
+    ok: !!reale.disponibile,
+    testo: reale.disponibile
+      ? "Conto demo reale cTrader raggiungibile"
+      : "Conto demo reale cTrader non raggiungibile in questo aggiornamento"
+  });
+
+  const giorniToken = reale.token_giorni_rimasti;
+  if (giorniToken !== null && giorniToken !== undefined) {
+    controlli.push({
+      ok: giorniToken > 7,
+      testo: giorniToken > 7
+        ? `Token cTrader valido ancora per ${Math.round(giorniToken)} giorni`
+        : `Token cTrader in scadenza tra ${Math.max(0, Math.round(giorniToken))} giorni — va rinnovato`
+    });
+  }
+
+  [["fronte1", "Fronte 1"], ["fronte3", "Fronte 3"]].forEach(([chiave, nome]) => {
+    const dd = dati[chiave]?.drawdown_pct ?? 0;
+    controlli.push({
+      ok: dd < 20,
+      testo: dd < 20
+        ? `${nome}: drawdown sotto controllo (${dd}%)`
+        : `${nome}: drawdown elevato (${dd}%) — da monitorare con attenzione`
+    });
+  });
+
+  const perStrumento = dati.fronte1?.per_strumento || {};
+  const problematici = Object.entries(perStrumento)
+    .filter(([, s]) => (s.vinte + s.perse) >= 5 && s.percentuale_successo === 0)
+    .map(([nome]) => nome);
+  controlli.push({
+    ok: problematici.length === 0,
+    testo: problematici.length === 0
+      ? "Nessuno strumento sistematicamente in perdita"
+      : `Strumenti a 0% di successo su almeno 5 operazioni: ${problematici.join(", ")}`
+  });
+
+  const SOGLIA_GIORNI_POSIZIONE = 10;
+  const bloccate = (dati.fronte1?.posizioni_aperte || []).filter(p => {
+    const giorni = (ora - new Date(p.data_apertura)) / 86400000;
+    return giorni > SOGLIA_GIORNI_POSIZIONE;
+  });
+  controlli.push({
+    ok: bloccate.length === 0,
+    testo: bloccate.length === 0
+      ? "Nessuna posizione aperta da troppo tempo"
+      : `Posizione aperta da oltre ${SOGLIA_GIORNI_POSIZIONE} giorni: ${bloccate.map(p => p.strumento).join(", ")}`
+  });
+
+  return controlli;
+}
+
+function disegnaPannelloControllo(dati) {
+  const controlli = calcolaControlli(dati);
+  const problemi = controlli.filter(c => !c.ok).length;
+  const tuttoOk = problemi === 0;
+
+  const righeHtml = controlli.map(c => `
+    <li>
+      <span class="pc-segno ${c.ok ? 'ok' : 'ko'}">${c.ok ? '✓' : '✕'}</span>
+      <span>${c.testo}</span>
+    </li>`).join("");
+
+  document.getElementById("pannello-controllo").innerHTML = `
+    <div class="pannello-controllo">
+      <div class="pc-stato">
+        <span class="pc-pallino ${tuttoOk ? 'ok' : 'warn'}"></span>
+        <span class="pc-titolo">${tuttoOk ? 'Tutto a posto' : (problemi === 1 ? '1 cosa da controllare' : problemi + ' cose da controllare')}</span>
+      </div>
+      <div class="pc-sotto">Controllo eseguito sui dati dell'ultimo aggiornamento (${fmtData(dati.generato_il)})</div>
+      <ul class="pc-lista">${righeHtml}</ul>
+    </div>`;
+}
+
+async function controllaOra() {
+  const btn = document.getElementById("btn-controllo");
+  btn.disabled = true;
+  btn.textContent = "Controllo in corso...";
+  await carica();
+  btn.disabled = false;
+  btn.textContent = "🔍 Controlla ora";
+  document.getElementById("pannello-controllo").scrollIntoView({behavior: "smooth", block: "start"});
+}
+
+// ------------------- GRAFICI E SEZIONI -------------------
 
 function costruisciGraficoCapitale(canvasId, punti, colore) {
   const ctx = document.getElementById(canvasId);
@@ -214,59 +373,59 @@ function sezioneFronte(chiave, dati, colore, badgeClasse, descrizione) {
       <span class="dir ${p.direzione === 'LONG' ? 'dir-long' : 'dir-short'}">${p.direzione}</span>
     </div>`).join("") : '<div class="aperte-vuoto">Nessuna posizione aperta al momento</div>';
 
+  const etichettaDettaglio = dati.per_strumento ? "Dettaglio per strumento" : "Dettaglio mensile";
+  const tabellaDettaglio = dati.per_strumento ? `
+    <table class="strumenti">
+      <thead><tr><th>Strumento</th><th>V / P</th><th>Successo</th></tr></thead>
+      <tbody>${strumentiRighe}</tbody>
+    </table>` : `
+    <table class="strumenti">
+      <thead><tr><th>Mese</th><th>Rend.</th><th>Posizioni</th><th>Capitale</th></tr></thead>
+      <tbody>${mensileRighe}</tbody>
+    </table>`;
+
   return `
   <section class="fronte">
     <div class="fronte-header">
       <h2><span class="badge ${badgeClasse}"></span>${dati.nome}</h2>
     </div>
     <div class="fronte-sub">${descrizione}</div>
-    <div class="fronte-corpo">
-      <div>
-        <div class="grafico-box"><canvas id="grafico-${chiave}"></canvas></div>
-        <div class="stat-riga">
-          <div class="stat"><div class="n">${EUR(dati.capitale_attuale)}</div><div class="l">Capitale</div></div>
-          <div class="stat"><div class="n ${classeVar(dati.rendimento_pct)}">${PCT(dati.rendimento_pct)}</div><div class="l">Rendimento</div></div>
-          <div class="stat"><div class="n">${dati.drawdown_pct}%</div><div class="l">Drawdown dal picco</div></div>
-        </div>
-        <div>
-          <div class="stat-riga" style="margin-bottom:4px;">
-            <div class="stat"><div class="n">${successoNum}%</div><div class="l">Successo totale</div></div>
-          </div>
-          <div class="barra-successo"><div class="riempi" style="width:${successoNum}%"></div></div>
-        </div>
-        <div style="margin-top:16px;">
-          <div class="l" style="color:var(--text-dim); font-size:0.75rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:8px;">Posizioni aperte ora</div>
-          <div class="aperte-lista">${aperteHtml}</div>
-        </div>
-      </div>
-      <div>
-        ${dati.per_strumento ? `
-        <div class="l" style="color:var(--text-dim); font-size:0.75rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:8px;">Per strumento</div>
-        <table class="strumenti">
-          <thead><tr><th>Strumento</th><th>V / P</th><th>Successo</th></tr></thead>
-          <tbody>${strumentiRighe}</tbody>
-        </table>` : `
-        <div class="l" style="color:var(--text-dim); font-size:0.75rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:8px;">Storico mensile</div>
-        <table class="strumenti">
-          <thead><tr><th>Mese</th><th>Rend.</th><th>Posizioni</th><th>Capitale</th></tr></thead>
-          <tbody>${mensileRighe}</tbody>
-        </table>`}
-      </div>
+
+    <div class="grafico-box"><canvas id="grafico-${chiave}"></canvas></div>
+
+    <div class="stat-riga">
+      <div class="stat"><div class="n">${EUR(dati.capitale_attuale)}</div><div class="l">Capitale</div></div>
+      <div class="stat"><div class="n ${classeVar(dati.rendimento_pct)}">${PCT(dati.rendimento_pct)}</div><div class="l">Rendimento</div></div>
+      <div class="stat"><div class="n">${dati.drawdown_pct}%</div><div class="l">Drawdown dal picco</div></div>
+      <div class="stat"><div class="n">${successoNum}%</div><div class="l">Successo totale</div></div>
     </div>
+    <div class="barra-successo"><div class="riempi" style="width:${successoNum}%"></div></div>
+
+    <div style="margin-top:4px;">
+      <div class="l" style="color:var(--text-dim); font-size:0.75rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:8px;">Posizioni aperte ora</div>
+      <div class="aperte-lista">${aperteHtml}</div>
+    </div>
+
+    <details class="dettagli">
+      <summary>${etichettaDettaglio}</summary>
+      <div class="dettagli-corpo">${tabellaDettaglio}</div>
+    </details>
   </section>`;
 }
 
 function renderStorico(operazioni) {
-  const wrap = document.createElement("div");
+  const wrap = document.createElement("details");
   wrap.className = "storico-wrap";
   wrap.innerHTML = `
-    <h2>📜 Storico operazioni — Fronte 1</h2>
-    <div class="filtri" id="filtri"></div>
-    <div class="tabella-scroll">
-      <table class="storico">
-        <thead><tr><th>Strumento</th><th>Direzione</th><th>Apertura</th><th>Chiusura</th><th>Esito</th></tr></thead>
-        <tbody id="corpo-storico"></tbody>
-      </table>
+    <summary>📜 Storico operazioni — Fronte 1</summary>
+    <div class="storico-corpo">
+      <div class="filtri" id="filtri"></div>
+      <div class="tabella-scroll">
+        <table class="storico">
+          <thead><tr><th>Strumento</th><th>Direzione</th><th>Apertura</th><th>Chiusura</th><th>Esito</th></tr></thead>
+          <tbody id="corpo-storico"></tbody>
+        </table>
+      </div>
     </div>`;
 
   const strumenti = ["Tutti", ...new Set(operazioni.map(o => o.strumento))];
@@ -295,7 +454,8 @@ function renderStorico(operazioni) {
     const btn = document.createElement("button");
     btn.className = "filtro-btn" + (s === "Tutti" ? " attivo" : "");
     btn.textContent = s;
-    btn.onclick = () => {
+    btn.onclick = (ev) => {
+      ev.preventDefault();
       filtroAttivo = s;
       filtriEl.querySelectorAll(".filtro-btn").forEach(b => b.classList.remove("attivo"));
       btn.classList.add("attivo");
@@ -316,6 +476,8 @@ async function carica() {
     document.getElementById("aggiornato").innerHTML =
       `<span class="pallino"></span>Ultimo aggiornamento: ${fmtData(dati.generato_il)}`;
 
+    disegnaPannelloControllo(dati);
+
     const contenuto = document.getElementById("contenuto");
 
     const reale = dati.conto_reale || {};
@@ -331,17 +493,19 @@ async function carica() {
       </div>` : `
       <div class="conto-reale"><span style="color:var(--text-dim)">Conto reale non raggiungibile in questo aggiornamento.</span></div>`;
 
+    const capitaleTotale = dati.fronte1.capitale_attuale + dati.fronte3.capitale_attuale;
+
     contenuto.innerHTML = `
       <div class="griglia-overview">
+        <div class="card-overview principale">
+          <div class="etichetta">Capitale virtuale totale</div>
+          <div class="valore">${EUR(capitaleTotale)}</div>
+          <div class="variazione neutro">Fronte 1 + Fronte 3</div>
+        </div>
         <div class="card-overview">
           <div class="etichetta">Fronte 1 — Virtuale</div>
           <div class="valore">${EUR(dati.fronte1.capitale_attuale)}</div>
           <div class="variazione ${classeVar(dati.fronte1.rendimento_pct)}">${PCT(dati.fronte1.rendimento_pct)}</div>
-        </div>
-        <div class="card-overview">
-          <div class="etichetta">Conto demo reale</div>
-          <div class="valore">${EUR(reale.saldo)}</div>
-          <div class="variazione neutro">GBP/JPY su cTrader</div>
         </div>
         <div class="card-overview">
           <div class="etichetta">Fronte 3 — Momentum</div>
@@ -349,9 +513,9 @@ async function carica() {
           <div class="variazione ${classeVar(dati.fronte3.rendimento_pct)}">${PCT(dati.fronte3.rendimento_pct)}</div>
         </div>
         <div class="card-overview">
-          <div class="etichetta">Capitale virtuale totale</div>
-          <div class="valore">${EUR(dati.fronte1.capitale_attuale + dati.fronte3.capitale_attuale)}</div>
-          <div class="variazione neutro">Fronte 1 + Fronte 3</div>
+          <div class="etichetta">Conto demo reale</div>
+          <div class="valore">${EUR(reale.saldo)}</div>
+          <div class="variazione neutro">GBP/JPY su cTrader</div>
         </div>
       </div>
 
