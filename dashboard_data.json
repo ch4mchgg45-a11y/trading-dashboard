@@ -1,5 +1,5 @@
 {
-  "generato_il": "2026-10-09T19:22:53.675288+00:00",
+  "generato_il": "2026-10-09T23:25:59.754615+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
@@ -42,7 +42,16 @@
         "percentuale_successo": 50.0
       }
     },
-    "posizioni_aperte": [],
+    "posizioni_aperte": [
+      {
+        "strumento": "ETF Mercati Sviluppati",
+        "direzione": "LONG",
+        "data_apertura": "2026-10-09T15:30:00-04:00",
+        "prezzo_ingresso": 70.3550033569336,
+        "stop_loss": 70.00303786141532,
+        "take_profit": 71.05893434797015
+      }
+    ],
     "curva_capitale": [
       {
         "data": null,
@@ -226,6 +235,15 @@
       }
     ],
     "storico_operazioni": [
+      {
+        "id": 57,
+        "strumento": "ETF Mercati Sviluppati",
+        "direzione": "LONG",
+        "data_apertura": "2026-10-09T15:30:00-04:00",
+        "data_chiusura": null,
+        "stato": "aperta",
+        "esito": null
+      },
       {
         "id": 56,
         "strumento": "ETF Petrolio & Gas",
@@ -782,6 +800,6 @@
     "strumenti_collegati": [
       "GBP/JPY"
     ],
-    "token_giorni_rimasti": 29.1
+    "token_giorni_rimasti": 28.9
   }
 }
