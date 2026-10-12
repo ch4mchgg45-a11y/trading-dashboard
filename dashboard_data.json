@@ -1,15 +1,15 @@
 {
-  "generato_il": "2026-10-12T13:26:35.489330+00:00",
+  "generato_il": "2026-10-12T21:49:59.066395+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
-    "capitale_attuale": 2025.92,
+    "capitale_attuale": 2004.28,
     "capitale_massimo": 2229.59,
-    "rendimento_pct": 1.3,
-    "drawdown_pct": 9.14,
+    "rendimento_pct": 0.21,
+    "drawdown_pct": 10.11,
     "operazioni_vinte": 16,
-    "operazioni_perse": 28,
-    "percentuale_successo": 36.4,
+    "operazioni_perse": 29,
+    "percentuale_successo": 35.6,
     "per_strumento": {
       "Oro": {
         "vinte": 1,
@@ -18,8 +18,8 @@
       },
       "ETF Mercati Sviluppati": {
         "vinte": 3,
-        "perse": 5,
-        "percentuale_successo": 37.5
+        "perse": 6,
+        "percentuale_successo": 33.3
       },
       "GBP/JPY": {
         "vinte": 7,
@@ -42,16 +42,7 @@
         "percentuale_successo": 50.0
       }
     },
-    "posizioni_aperte": [
-      {
-        "strumento": "ETF Mercati Sviluppati",
-        "direzione": "LONG",
-        "data_apertura": "2026-10-09T15:30:00-04:00",
-        "prezzo_ingresso": 70.3550033569336,
-        "stop_loss": 70.00303786141532,
-        "take_profit": 71.05893434797015
-      }
-    ],
+    "posizioni_aperte": [],
     "curva_capitale": [
       {
         "data": null,
@@ -232,6 +223,10 @@
       {
         "data": "2026-10-08T09:30:00-04:00",
         "capitale": 2025.92
+      },
+      {
+        "data": "2026-10-12T10:30:00-04:00",
+        "capitale": 2004.28
       }
     ],
     "storico_operazioni": [
@@ -240,9 +235,9 @@
         "strumento": "ETF Mercati Sviluppati",
         "direzione": "LONG",
         "data_apertura": "2026-10-09T15:30:00-04:00",
-        "data_chiusura": null,
-        "stato": "aperta",
-        "esito": null
+        "data_chiusura": "2026-10-12T10:30:00-04:00",
+        "stato": "chiusa",
+        "esito": "stop loss"
       },
       {
         "id": 56,
@@ -800,6 +795,6 @@
     "strumenti_collegati": [
       "GBP/JPY"
     ],
-    "token_giorni_rimasti": 26.4
+    "token_giorni_rimasti": 26.0
   }
 }
