@@ -1,15 +1,15 @@
 {
-  "generato_il": "2026-10-15T09:20:00.312788+00:00",
+  "generato_il": "2026-10-15T14:21:27.277673+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
-    "capitale_attuale": 2004.28,
+    "capitale_attuale": 1983.37,
     "capitale_massimo": 2229.59,
-    "rendimento_pct": 0.21,
-    "drawdown_pct": 10.11,
+    "rendimento_pct": -0.83,
+    "drawdown_pct": 11.04,
     "operazioni_vinte": 16,
-    "operazioni_perse": 29,
-    "percentuale_successo": 35.6,
+    "operazioni_perse": 30,
+    "percentuale_successo": 34.8,
     "per_strumento": {
       "Oro": {
         "vinte": 1,
@@ -28,7 +28,7 @@
       },
       "Lululemon": {
         "vinte": 0,
-        "perse": 6,
+        "perse": 7,
         "percentuale_successo": 0.0
       },
       "Hang Seng": {
@@ -43,14 +43,6 @@
       }
     },
     "posizioni_aperte": [
-      {
-        "strumento": "Lululemon",
-        "direzione": "SHORT",
-        "data_apertura": "2026-10-14T12:30:00-04:00",
-        "prezzo_ingresso": 94.0,
-        "stop_loss": 95.3933606828962,
-        "take_profit": 91.21327863420758
-      },
       {
         "strumento": "GBP/JPY",
         "direzione": "LONG",
@@ -244,6 +236,10 @@
       {
         "data": "2026-10-12T10:30:00-04:00",
         "capitale": 2004.28
+      },
+      {
+        "data": "2026-10-15T09:30:00-04:00",
+        "capitale": 1983.37
       }
     ],
     "storico_operazioni": [
@@ -261,9 +257,9 @@
         "strumento": "Lululemon",
         "direzione": "SHORT",
         "data_apertura": "2026-10-14T12:30:00-04:00",
-        "data_chiusura": null,
-        "stato": "aperta",
-        "esito": null
+        "data_chiusura": "2026-10-15T09:30:00-04:00",
+        "stato": "chiusa",
+        "esito": "stop loss"
       },
       {
         "id": 57,
@@ -835,6 +831,6 @@
     "strumenti_collegati": [
       "GBP/JPY"
     ],
-    "token_giorni_rimasti": 23.5
+    "token_giorni_rimasti": 23.3
   }
 }
