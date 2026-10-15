@@ -1,5 +1,5 @@
 {
-  "generato_il": "2026-10-15T00:02:15.303465+00:00",
+  "generato_il": "2026-10-15T04:23:50.181180+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
@@ -813,6 +813,6 @@
     "strumenti_collegati": [
       "GBP/JPY"
     ],
-    "token_giorni_rimasti": 23.9
+    "token_giorni_rimasti": 23.7
   }
 }
