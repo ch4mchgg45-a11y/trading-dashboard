@@ -1,5 +1,5 @@
 {
-  "generato_il": "2026-10-15T04:23:50.181180+00:00",
+  "generato_il": "2026-10-15T09:20:00.312788+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
@@ -50,6 +50,14 @@
         "prezzo_ingresso": 94.0,
         "stop_loss": 95.3933606828962,
         "take_profit": 91.21327863420758
+      },
+      {
+        "strumento": "GBP/JPY",
+        "direzione": "LONG",
+        "data_apertura": "2026-10-15T09:00:00+01:00",
+        "prezzo_ingresso": 209.26699829101562,
+        "stop_loss": 208.79814202444894,
+        "take_profit": 210.204710824149
       }
     ],
     "curva_capitale": [
@@ -239,6 +247,15 @@
       }
     ],
     "storico_operazioni": [
+      {
+        "id": 59,
+        "strumento": "GBP/JPY",
+        "direzione": "LONG",
+        "data_apertura": "2026-10-15T09:00:00+01:00",
+        "data_chiusura": null,
+        "stato": "aperta",
+        "esito": null
+      },
       {
         "id": 58,
         "strumento": "Lululemon",
@@ -809,10 +826,15 @@
     "disponibile": true,
     "broker": "Pepperstone (cTrader) - CONTO DEMO, nessun soldo vero",
     "saldo": 946.07,
-    "posizioni_aperte": [],
+    "posizioni_aperte": [
+      {
+        "strumento": "GBPJPY",
+        "direzione": "LONG"
+      }
+    ],
     "strumenti_collegati": [
       "GBP/JPY"
     ],
-    "token_giorni_rimasti": 23.7
+    "token_giorni_rimasti": 23.5
   }
 }
