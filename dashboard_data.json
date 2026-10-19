@@ -1,5 +1,5 @@
 {
-  "generato_il": "2026-10-19T10:11:05.740399+00:00",
+  "generato_il": "2026-10-19T17:07:36.749563+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
@@ -58,6 +58,14 @@
         "prezzo_ingresso": 210.8000030517578,
         "stop_loss": 210.4834987095424,
         "take_profit": 211.4330117361886
+      },
+      {
+        "strumento": "Lululemon",
+        "direzione": "SHORT",
+        "data_apertura": "2026-10-19T11:30:00-04:00",
+        "prezzo_ingresso": 97.0199966430664,
+        "stop_loss": 98.49803134373256,
+        "take_profit": 94.06392724173409
       }
     ],
     "curva_capitale": [
@@ -255,6 +263,15 @@
       }
     ],
     "storico_operazioni": [
+      {
+        "id": 62,
+        "strumento": "Lululemon",
+        "direzione": "SHORT",
+        "data_apertura": "2026-10-19T11:30:00-04:00",
+        "data_chiusura": null,
+        "stato": "aperta",
+        "esito": null
+      },
       {
         "id": 61,
         "strumento": "GBP/JPY",
@@ -861,6 +878,6 @@
     "strumenti_collegati": [
       "GBP/JPY"
     ],
-    "token_giorni_rimasti": 19.5
+    "token_giorni_rimasti": 19.2
   }
 }
