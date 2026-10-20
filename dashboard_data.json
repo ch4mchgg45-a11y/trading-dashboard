@@ -1,15 +1,15 @@
 {
-  "generato_il": "2026-10-20T11:15:58.528422+00:00",
+  "generato_il": "2026-10-20T15:48:27.574493+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
-    "capitale_attuale": 2021.92,
+    "capitale_attuale": 2018.56,
     "capitale_massimo": 2229.59,
-    "rendimento_pct": 1.1,
-    "drawdown_pct": 9.31,
-    "operazioni_vinte": 17,
-    "operazioni_perse": 30,
-    "percentuale_successo": 36.2,
+    "rendimento_pct": 0.93,
+    "drawdown_pct": 9.46,
+    "operazioni_vinte": 18,
+    "operazioni_perse": 32,
+    "percentuale_successo": 36.0,
     "per_strumento": {
       "Oro": {
         "vinte": 1,
@@ -22,13 +22,13 @@
         "percentuale_successo": 33.3
       },
       "GBP/JPY": {
-        "vinte": 8,
+        "vinte": 9,
         "perse": 13,
-        "percentuale_successo": 38.1
+        "percentuale_successo": 40.9
       },
       "Lululemon": {
         "vinte": 0,
-        "perse": 7,
+        "perse": 8,
         "percentuale_successo": 0.0
       },
       "Hang Seng": {
@@ -38,36 +38,11 @@
       },
       "ETF Petrolio & Gas": {
         "vinte": 5,
-        "perse": 5,
-        "percentuale_successo": 50.0
+        "perse": 6,
+        "percentuale_successo": 45.5
       }
     },
-    "posizioni_aperte": [
-      {
-        "strumento": "ETF Petrolio & Gas",
-        "direzione": "LONG",
-        "data_apertura": "2026-10-16T15:30:00-04:00",
-        "prezzo_ingresso": 200.4199981689453,
-        "stop_loss": 198.33125032697404,
-        "take_profit": 204.59749385288782
-      },
-      {
-        "strumento": "GBP/JPY",
-        "direzione": "LONG",
-        "data_apertura": "2026-10-19T10:00:00+01:00",
-        "prezzo_ingresso": 210.8000030517578,
-        "stop_loss": 210.4834987095424,
-        "take_profit": 211.4330117361886
-      },
-      {
-        "strumento": "Lululemon",
-        "direzione": "SHORT",
-        "data_apertura": "2026-10-19T11:30:00-04:00",
-        "prezzo_ingresso": 97.0199966430664,
-        "stop_loss": 98.49803134373256,
-        "take_profit": 94.06392724173409
-      }
-    ],
+    "posizioni_aperte": [],
     "curva_capitale": [
       {
         "data": null,
@@ -260,6 +235,18 @@
       {
         "data": "2026-10-16T07:00:00+01:00",
         "capitale": 2021.92
+      },
+      {
+        "data": "2026-10-20T09:30:00-04:00",
+        "capitale": 2001.46
+      },
+      {
+        "data": "2026-10-20T14:00:00+01:00",
+        "capitale": 2039.6
+      },
+      {
+        "data": "2026-10-20T09:30:00-04:00",
+        "capitale": 2018.56
       }
     ],
     "storico_operazioni": [
@@ -268,27 +255,27 @@
         "strumento": "Lululemon",
         "direzione": "SHORT",
         "data_apertura": "2026-10-19T11:30:00-04:00",
-        "data_chiusura": null,
-        "stato": "aperta",
-        "esito": null
+        "data_chiusura": "2026-10-20T09:30:00-04:00",
+        "stato": "chiusa",
+        "esito": "stop loss"
       },
       {
         "id": 61,
         "strumento": "GBP/JPY",
         "direzione": "LONG",
         "data_apertura": "2026-10-19T10:00:00+01:00",
-        "data_chiusura": null,
-        "stato": "aperta",
-        "esito": null
+        "data_chiusura": "2026-10-20T14:00:00+01:00",
+        "stato": "chiusa",
+        "esito": "take profit"
       },
       {
         "id": 60,
         "strumento": "ETF Petrolio & Gas",
         "direzione": "LONG",
         "data_apertura": "2026-10-16T15:30:00-04:00",
-        "data_chiusura": null,
-        "stato": "aperta",
-        "esito": null
+        "data_chiusura": "2026-10-20T09:30:00-04:00",
+        "stato": "chiusa",
+        "esito": "stop loss"
       },
       {
         "id": 59,
@@ -868,16 +855,11 @@
   "conto_reale": {
     "disponibile": true,
     "broker": "Pepperstone (cTrader) - CONTO DEMO, nessun soldo vero",
-    "saldo": 950.87,
-    "posizioni_aperte": [
-      {
-        "strumento": "GBPJPY",
-        "direzione": "LONG"
-      }
-    ],
+    "saldo": 953.97,
+    "posizioni_aperte": [],
     "strumenti_collegati": [
       "GBP/JPY"
     ],
-    "token_giorni_rimasti": 18.5
+    "token_giorni_rimasti": 18.3
   }
 }
