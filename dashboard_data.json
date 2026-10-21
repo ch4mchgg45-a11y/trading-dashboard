@@ -1,5 +1,5 @@
 {
-  "generato_il": "2026-10-21T08:50:15.200551+00:00",
+  "generato_il": "2026-10-21T12:14:24.674599+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
@@ -58,6 +58,14 @@
         "prezzo_ingresso": 199.97999572753906,
         "stop_loss": 202.2042726789202,
         "take_profit": 195.53144182477678
+      },
+      {
+        "strumento": "GBP/JPY",
+        "direzione": "SHORT",
+        "data_apertura": "2026-10-21T12:00:00+01:00",
+        "prezzo_ingresso": 211.49200439453125,
+        "stop_loss": 211.8151479448591,
+        "take_profit": 210.84571729387557
       }
     ],
     "curva_capitale": [
@@ -267,6 +275,15 @@
       }
     ],
     "storico_operazioni": [
+      {
+        "id": 65,
+        "strumento": "GBP/JPY",
+        "direzione": "SHORT",
+        "data_apertura": "2026-10-21T12:00:00+01:00",
+        "data_chiusura": null,
+        "stato": "aperta",
+        "esito": null
+      },
       {
         "id": 64,
         "strumento": "ETF Petrolio & Gas",
@@ -922,10 +939,15 @@
     "disponibile": true,
     "broker": "Pepperstone (cTrader) - CONTO DEMO, nessun soldo vero",
     "saldo": 953.97,
-    "posizioni_aperte": [],
+    "posizioni_aperte": [
+      {
+        "strumento": "GBPJPY",
+        "direzione": "SHORT"
+      }
+    ],
     "strumenti_collegati": [
       "GBP/JPY"
     ],
-    "token_giorni_rimasti": 17.6
+    "token_giorni_rimasti": 17.4
   }
 }
