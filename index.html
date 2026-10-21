@@ -103,6 +103,7 @@
   .badge { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:8px; vertical-align: middle; }
   .badge-blu { background: var(--blue); }
   .badge-viola { background: var(--purple); }
+  .badge-verde { background: var(--green); }
   .fronte-sub { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 16px; }
 
   .stat-riga { display: flex; gap: 22px; flex-wrap: wrap; margin-bottom: 16px; }
@@ -247,7 +248,7 @@ function calcolaControlli(dati) {
     });
   }
 
-  [["fronte1", "Fronte 1"], ["fronte3", "Fronte 3"]].forEach(([chiave, nome]) => {
+  [["fronte1", "Fronte 1"], ["fronte3", "Fronte 3"], ["fronte4", "Fronte 4"]].forEach(([chiave, nome]) => {
     const dd = dati[chiave]?.drawdown_pct ?? 0;
     controlli.push({
       ok: dd < 20,
@@ -361,7 +362,7 @@ function sezioneFronte(chiave, dati, colore, badgeClasse, descrizione) {
       <tr>
         <td>${m.mese}</td>
         <td class="${classeVar(m.rendimento_pct)}">${PCT(m.rendimento_pct)}</td>
-        <td>${m.long} long / ${m.short} short</td>
+        <td>${m.in_mercato !== undefined ? `${m.in_mercato}/${m.totale} in mercato` : `${m.long} long / ${m.short} short`}</td>
         <td>${EUR(m.capitale_dopo)}</td>
       </tr>`).join("");
   }
@@ -493,14 +494,14 @@ async function carica() {
       </div>` : `
       <div class="conto-reale"><span style="color:var(--text-dim)">Conto reale non raggiungibile in questo aggiornamento.</span></div>`;
 
-    const capitaleTotale = dati.fronte1.capitale_attuale + dati.fronte3.capitale_attuale;
+    const capitaleTotale = dati.fronte1.capitale_attuale + dati.fronte3.capitale_attuale + dati.fronte4.capitale_attuale;
 
     contenuto.innerHTML = `
       <div class="griglia-overview">
         <div class="card-overview principale">
           <div class="etichetta">Capitale virtuale totale</div>
           <div class="valore">${EUR(capitaleTotale)}</div>
-          <div class="variazione neutro">Fronte 1 + Fronte 3</div>
+          <div class="variazione neutro">Fronte 1 + Fronte 3 + Fronte 4</div>
         </div>
         <div class="card-overview">
           <div class="etichetta">Fronte 1 — Virtuale</div>
@@ -511,6 +512,11 @@ async function carica() {
           <div class="etichetta">Fronte 3 — Momentum</div>
           <div class="valore">${EUR(dati.fronte3.capitale_attuale)}</div>
           <div class="variazione ${classeVar(dati.fronte3.rendimento_pct)}">${PCT(dati.fronte3.rendimento_pct)}</div>
+        </div>
+        <div class="card-overview">
+          <div class="etichetta">Fronte 4 — Lungo termine</div>
+          <div class="valore">${EUR(dati.fronte4.capitale_attuale)}</div>
+          <div class="variazione ${classeVar(dati.fronte4.rendimento_pct)}">${PCT(dati.fronte4.rendimento_pct)}</div>
         </div>
         <div class="card-overview">
           <div class="etichetta">Conto demo reale</div>
@@ -525,10 +531,13 @@ async function carica() {
         "5 strumenti, strategia Incrocio Medie Mobili. GBP/JPY eseguito anche realmente su conto demo.")}
       ${sezioneFronte("f3", dati.fronte3, "#b98bff", "badge-viola",
         "108 strumenti in portafoglio, ribilanciato una volta al mese (Time Series Momentum).")}
+      ${sezioneFronte("f4", dati.fronte4, "#35c98f", "badge-verde",
+        "Lungo termine: long solo sopra la media mobile a 10 mesi, altrimenti liquidità (Trend filter, Faber 2007).")}
     `;
 
     costruisciGraficoCapitale("grafico-f1", dati.fronte1.curva_capitale, "#4f8bff");
     costruisciGraficoCapitale("grafico-f3", dati.fronte3.curva_capitale, "#b98bff");
+    costruisciGraficoCapitale("grafico-f4", dati.fronte4.curva_capitale, "#35c98f");
 
     contenuto.appendChild(renderStorico(dati.fronte1.storico_operazioni));
 

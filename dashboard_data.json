@@ -1,5 +1,5 @@
 {
-  "generato_il": "2026-10-21T06:27:29.685555+00:00",
+  "generato_il": "2026-10-21T08:50:15.200551+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
@@ -887,6 +887,37 @@
       }
     ]
   },
+  "fronte4": {
+    "nome": "Trend filter 10 mesi (lungo termine)",
+    "capitale_iniziale": 2000.0,
+    "capitale_attuale": 1975.49,
+    "capitale_massimo": 2000.0,
+    "rendimento_pct": -1.23,
+    "drawdown_pct": 1.23,
+    "mesi_processati": 1,
+    "mesi_positivi": 0,
+    "mesi_negativi": 1,
+    "percentuale_successo": 0.0,
+    "curva_capitale": [
+      {
+        "data": null,
+        "capitale": 2000.0
+      },
+      {
+        "data": "2026-09",
+        "capitale": 1975.49
+      }
+    ],
+    "storico_mensile": [
+      {
+        "mese": "2026-09",
+        "rendimento_pct": -1.23,
+        "in_mercato": 63,
+        "totale": 108,
+        "capitale_dopo": 1975.49
+      }
+    ]
+  },
   "conto_reale": {
     "disponibile": true,
     "broker": "Pepperstone (cTrader) - CONTO DEMO, nessun soldo vero",
@@ -895,6 +926,6 @@
     "strumenti_collegati": [
       "GBP/JPY"
     ],
-    "token_giorni_rimasti": 17.7
+    "token_giorni_rimasti": 17.6
   }
 }
