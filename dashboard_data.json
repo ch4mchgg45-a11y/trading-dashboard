@@ -1,15 +1,15 @@
 {
-  "generato_il": "2026-10-22T04:12:18.541883+00:00",
+  "generato_il": "2026-10-22T09:34:29.653783+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
-    "capitale_attuale": 1996.13,
+    "capitale_attuale": 2033.65,
     "capitale_massimo": 2229.59,
-    "rendimento_pct": -0.19,
-    "drawdown_pct": 10.47,
-    "operazioni_vinte": 18,
+    "rendimento_pct": 1.68,
+    "drawdown_pct": 8.79,
+    "operazioni_vinte": 19,
     "operazioni_perse": 33,
-    "percentuale_successo": 35.3,
+    "percentuale_successo": 36.5,
     "per_strumento": {
       "Oro": {
         "vinte": 1,
@@ -22,9 +22,9 @@
         "percentuale_successo": 33.3
       },
       "GBP/JPY": {
-        "vinte": 9,
+        "vinte": 10,
         "perse": 14,
-        "percentuale_successo": 39.1
+        "percentuale_successo": 41.7
       },
       "Lululemon": {
         "vinte": 0,
@@ -66,14 +66,6 @@
         "prezzo_ingresso": 96.52999877929688,
         "stop_loss": 98.01100403921944,
         "take_profit": 93.56798825945172
-      },
-      {
-        "strumento": "GBP/JPY",
-        "direzione": "SHORT",
-        "data_apertura": "2026-10-22T04:00:00+01:00",
-        "prezzo_ingresso": 211.25999450683594,
-        "stop_loss": 211.55967603410994,
-        "take_profit": 210.66063145228796
       }
     ],
     "curva_capitale": [
@@ -284,6 +276,10 @@
       {
         "data": "2026-10-21T18:00:00+01:00",
         "capitale": 1996.13
+      },
+      {
+        "data": "2026-10-22T07:00:00+01:00",
+        "capitale": 2033.65
       }
     ],
     "storico_operazioni": [
@@ -292,9 +288,9 @@
         "strumento": "GBP/JPY",
         "direzione": "SHORT",
         "data_apertura": "2026-10-22T04:00:00+01:00",
-        "data_chiusura": null,
-        "stato": "aperta",
-        "esito": null
+        "data_chiusura": "2026-10-22T07:00:00+01:00",
+        "stato": "chiusa",
+        "esito": "take profit"
       },
       {
         "id": 66,
@@ -968,16 +964,11 @@
   "conto_reale": {
     "disponibile": true,
     "broker": "Pepperstone (cTrader) - CONTO DEMO, nessun soldo vero",
-    "saldo": 952.3,
-    "posizioni_aperte": [
-      {
-        "strumento": "GBPJPY",
-        "direzione": "SHORT"
-      }
-    ],
+    "saldo": 955.59,
+    "posizioni_aperte": [],
     "strumenti_collegati": [
       "GBP/JPY"
     ],
-    "token_giorni_rimasti": 16.7
+    "token_giorni_rimasti": 16.5
   }
 }
