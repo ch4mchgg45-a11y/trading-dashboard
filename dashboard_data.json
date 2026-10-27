@@ -1,15 +1,15 @@
 {
-  "generato_il": "2026-10-27T12:35:54.875783+00:00",
+  "generato_il": "2026-10-27T18:37:45.730257+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
-    "capitale_attuale": 2010.54,
+    "capitale_attuale": 1966.7,
     "capitale_massimo": 2229.59,
-    "rendimento_pct": 0.53,
-    "drawdown_pct": 9.82,
+    "rendimento_pct": -1.67,
+    "drawdown_pct": 11.79,
     "operazioni_vinte": 20,
-    "operazioni_perse": 36,
-    "percentuale_successo": 35.7,
+    "operazioni_perse": 38,
+    "percentuale_successo": 34.5,
     "per_strumento": {
       "Oro": {
         "vinte": 1,
@@ -18,13 +18,13 @@
       },
       "ETF Mercati Sviluppati": {
         "vinte": 3,
-        "perse": 7,
-        "percentuale_successo": 30.0
+        "perse": 8,
+        "percentuale_successo": 27.3
       },
       "GBP/JPY": {
         "vinte": 10,
-        "perse": 14,
-        "percentuale_successo": 41.7
+        "perse": 15,
+        "percentuale_successo": 40.0
       },
       "Lululemon": {
         "vinte": 0,
@@ -44,28 +44,12 @@
     },
     "posizioni_aperte": [
       {
-        "strumento": "ETF Mercati Sviluppati",
-        "direzione": "SHORT",
-        "data_apertura": "2026-10-22T13:30:00-04:00",
-        "prezzo_ingresso": 69.28990173339844,
-        "stop_loss": 69.67718369620187,
-        "take_profit": 68.51533780779157
-      },
-      {
         "strumento": "Hang Seng",
         "direzione": "SHORT",
         "data_apertura": "2026-10-27T15:30:00+08:00",
         "prezzo_ingresso": 23041.3203125,
         "stop_loss": 23173.59151785714,
         "take_profit": 22776.777901785714
-      },
-      {
-        "strumento": "GBP/JPY",
-        "direzione": "SHORT",
-        "data_apertura": "2026-10-27T11:00:00+00:00",
-        "prezzo_ingresso": 210.12399291992188,
-        "stop_loss": 210.45795604160853,
-        "take_profit": 209.45606667654855
       }
     ],
     "curva_capitale": [
@@ -296,6 +280,14 @@
       {
         "data": "2026-10-23T09:30:00-04:00",
         "capitale": 2010.54
+      },
+      {
+        "data": "2026-10-27T10:30:00-04:00",
+        "capitale": 1988.97
+      },
+      {
+        "data": "2026-10-27T14:00:00+00:00",
+        "capitale": 1966.7
       }
     ],
     "storico_operazioni": [
@@ -313,18 +305,18 @@
         "strumento": "GBP/JPY",
         "direzione": "SHORT",
         "data_apertura": "2026-10-27T11:00:00+00:00",
-        "data_chiusura": null,
-        "stato": "aperta",
-        "esito": null
+        "data_chiusura": "2026-10-27T14:00:00+00:00",
+        "stato": "chiusa",
+        "esito": "stop loss"
       },
       {
         "id": 69,
         "strumento": "ETF Mercati Sviluppati",
         "direzione": "SHORT",
         "data_apertura": "2026-10-22T13:30:00-04:00",
-        "data_chiusura": null,
-        "stato": "aperta",
-        "esito": null
+        "data_chiusura": "2026-10-27T10:30:00-04:00",
+        "stato": "chiusa",
+        "esito": "stop loss"
       },
       {
         "id": 68,
@@ -1016,16 +1008,11 @@
   "conto_reale": {
     "disponibile": true,
     "broker": "Pepperstone (cTrader) - CONTO DEMO, nessun soldo vero",
-    "saldo": 955.59,
-    "posizioni_aperte": [
-      {
-        "strumento": "GBPJPY",
-        "direzione": "SHORT"
-      }
-    ],
+    "saldo": 954.74,
+    "posizioni_aperte": [],
     "strumenti_collegati": [
       "GBP/JPY"
     ],
-    "token_giorni_rimasti": 11.4
+    "token_giorni_rimasti": 11.1
   }
 }
