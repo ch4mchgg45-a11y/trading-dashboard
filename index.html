@@ -5,176 +5,165 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sistema Trading — Dashboard</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <style>
   :root {
-    --bg: #0b0f17;
-    --bg-card: #121826;
-    --bg-card-2: #161d2e;
-    --border: #232b3d;
-    --text: #e7ecf5;
-    --text-dim: #8b97ad;
-    --blue: #4f8bff;
-    --purple: #b98bff;
-    --green: #35c98f;
-    --red: #ff5c72;
-    --amber: #ffb648;
-    --radius: 14px;
+    --ink: #0a0b08;
+    --panel: #14160f;
+    --panel-2: #191c13;
+    --line: #2b2e22;
+    --paper: #edeadb;
+    --dim: #8c8f77;
+    --amber: #e8a33d;
+    --blue: #5b8def;
+    --violet: #b18cf2;
+    --green: #6fcf97;
+    --rust: #e0654a;
+    --radius: 4px;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0;
-    background: radial-gradient(1200px 600px at 20% -10%, #16203a 0%, var(--bg) 55%);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    padding: 24px 16px 64px;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: "Space Grotesk", -apple-system, sans-serif;
+    padding: 28px 18px 64px;
+    font-size: 15px;
   }
-  .wrap { max-width: 1100px; margin: 0 auto; }
+  .num { font-family: "IBM Plex Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  .wrap { max-width: 880px; margin: 0 auto; }
 
-  header { margin-bottom: 20px; }
-  .header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-  .header-titolo { display: flex; align-items: center; gap: 12px; }
-  .header-titolo img { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; }
-  header h1 { font-size: 1.4rem; margin: 0 0 2px; letter-spacing: -0.01em; }
-  header .sub { color: var(--text-dim); font-size: 0.85rem; }
-  .aggiornato { color: var(--text-dim); font-size: 0.8rem; margin-top: 10px; }
-  .aggiornato .pallino { display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--green); margin-right:6px; }
+  header { margin-bottom: 18px; }
+  .header-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .header-titolo { display: flex; align-items: center; gap: 11px; }
+  .header-titolo img { width: 30px; height: 30px; border-radius: 6px; flex-shrink: 0; }
+  header h1 { font-size: 1.1rem; margin: 0; font-weight: 600; letter-spacing: 0.01em; }
+  header .sub { color: var(--dim); font-size: 0.78rem; margin-top: 2px; max-width: 46ch; }
+  .aggiornato { color: var(--dim); font-size: 0.78rem; margin-top: 14px; }
+  .pallino-live {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--green); margin-right: 7px; position: relative; top: -1px;
+    animation: respira 2.6s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) { .pallino-live { animation: none; } }
+  @keyframes respira { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
 
   .btn-controllo {
-    background: linear-gradient(135deg, var(--blue), var(--purple));
-    color: white; border: none; border-radius: 10px;
-    padding: 11px 20px; font-size: 0.88rem; font-weight: 650; cursor: pointer;
-    white-space: nowrap; transition: opacity .15s, transform .1s;
-    box-shadow: 0 4px 14px rgba(79,139,255,.25);
+    background: transparent; color: var(--amber); border: 1px solid var(--amber);
+    border-radius: var(--radius); padding: 9px 16px; font-family: inherit;
+    font-size: 0.82rem; font-weight: 500; cursor: pointer; white-space: nowrap;
+    transition: background .15s, color .15s;
   }
-  .btn-controllo:hover { opacity: 0.9; }
-  .btn-controllo:active { transform: scale(0.98); }
-  .btn-controllo:disabled { opacity: 0.6; cursor: default; }
+  .btn-controllo:hover { background: var(--amber); color: var(--ink); }
+  .btn-controllo:disabled { opacity: 0.5; cursor: default; background: transparent; color: var(--amber); }
 
   .pannello-controllo {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 18px 20px;
-    margin: 18px 0 28px;
+    border-left: 2px solid var(--amber);
+    padding: 4px 0 4px 16px;
+    margin: 22px 0 30px;
   }
-  .pc-stato { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
-  .pc-pallino { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
-  .pc-pallino.ok { background: var(--green); box-shadow: 0 0 0 4px rgba(53,201,143,.18); }
-  .pc-pallino.warn { background: var(--amber); box-shadow: 0 0 0 4px rgba(255,182,72,.18); }
-  .pc-titolo { font-size: 1.05rem; font-weight: 650; }
-  .pc-sotto { color: var(--text-dim); font-size: 0.78rem; margin: 2px 0 14px 21px; }
-  .pc-lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
-  .pc-lista li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; line-height: 1.4; }
-  .pc-segno { flex-shrink: 0; width: 18px; height: 18px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 800; margin-top: 1px; }
-  .pc-segno.ok { background: rgba(53,201,143,.15); color: var(--green); }
-  .pc-segno.ko { background: rgba(255,92,114,.15); color: var(--red); }
+  .pannello-controllo.ok { border-left-color: var(--green); }
+  .pc-titolo { font-size: 0.95rem; font-weight: 600; }
+  .pc-sotto { color: var(--dim); font-size: 0.76rem; margin: 2px 0 12px; }
+  .pc-lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+  .pc-lista li { display: flex; align-items: baseline; gap: 9px; font-size: 0.85rem; line-height: 1.45; }
+  .pc-segno { font-family: "IBM Plex Mono", monospace; font-weight: 600; flex-shrink: 0; width: 12px; }
+  .pc-segno.ok { color: var(--green); }
+  .pc-segno.ko { color: var(--rust); }
 
-  .griglia-overview {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 14px;
-    margin-bottom: 24px;
+  .hero { margin-bottom: 30px; }
+  .hero .etichetta { color: var(--dim); font-size: 0.78rem; margin-bottom: 4px; }
+  .hero .valore { font-size: 3.1rem; font-weight: 500; letter-spacing: -0.01em; line-height: 1; }
+  .scomposizione { display: flex; flex-direction: column; margin-top: 16px; }
+  .scomposizione .riga {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 8px 0; border-top: 1px solid var(--line); font-size: 0.88rem;
   }
-  .card-overview {
-    background: linear-gradient(155deg, var(--bg-card-2), var(--bg-card));
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 18px 20px;
-  }
-  .card-overview.principale { grid-column: 1 / -1; }
-  .card-overview.principale .valore { font-size: 2.1rem; }
-  .card-overview .etichetta { color: var(--text-dim); font-size: 0.78rem; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 8px; }
-  .card-overview .valore { font-size: 1.7rem; font-weight: 650; letter-spacing: -0.02em; }
-  .card-overview .variazione { font-size: 0.85rem; margin-top: 4px; font-weight: 600; }
+  .scomposizione .riga .etichetta-riga { display: flex; align-items: center; gap: 8px; color: var(--paper); }
+  .scomposizione .riga .numeri { display: flex; gap: 14px; align-items: baseline; }
+  .scomposizione .riga .var { font-size: 0.8rem; min-width: 52px; text-align: right; }
+  .puntino { display: inline-block; width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .puntino.blu { background: var(--blue); }
+  .puntino.viola { background: var(--violet); }
+  .puntino.verde { background: var(--green); }
   .pos { color: var(--green); }
-  .neg { color: var(--red); }
-  .neutro { color: var(--text-dim); }
+  .neg { color: var(--rust); }
+  .neutro { color: var(--dim); }
 
-  section.fronte {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 22px;
-    margin-bottom: 18px;
-  }
-  .fronte-header { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
-  .fronte-header h2 { margin: 0; font-size: 1.1rem; }
-  .badge { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:8px; vertical-align: middle; }
-  .badge-blu { background: var(--blue); }
-  .badge-viola { background: var(--purple); }
-  .badge-verde { background: var(--green); }
-  .fronte-sub { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 16px; }
+  section.fronte { border-top: 1px solid var(--line); padding: 26px 0; }
+  .fronte-header { display: flex; align-items: center; gap: 9px; margin-bottom: 3px; }
+  .fronte-header h2 { margin: 0; font-size: 1rem; font-weight: 600; }
+  .fronte-sub { color: var(--dim); font-size: 0.8rem; margin-bottom: 18px; max-width: 58ch; }
 
-  .stat-riga { display: flex; gap: 22px; flex-wrap: wrap; margin-bottom: 16px; }
-  .stat { min-width: 90px; }
-  .stat .n { font-size: 1.25rem; font-weight: 650; }
-  .stat .l { color: var(--text-dim); font-size: 0.75rem; text-transform: uppercase; letter-spacing: .03em; }
+  .stat-riga { display: flex; gap: 28px; flex-wrap: wrap; margin-bottom: 18px; }
+  .stat .n { font-size: 1.15rem; font-weight: 500; }
+  .stat .l { color: var(--dim); font-size: 0.72rem; margin-top: 2px; }
 
-  .barra-successo { height: 8px; border-radius: 4px; background: #1e2536; overflow: hidden; margin: 4px 0 16px; }
-  .barra-successo .riempi { height: 100%; background: linear-gradient(90deg, var(--red), var(--amber) 45%, var(--green) 75%); }
+  .barra-successo { height: 3px; background: var(--line); overflow: hidden; margin: 2px 0 18px; }
+  .barra-successo .riempi { height: 100%; background: var(--green); }
 
-  .grafico-box { position: relative; height: 150px; margin-bottom: 14px; }
+  .grafico-box { position: relative; height: 130px; margin-bottom: 16px; }
 
-  .aperte-lista { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
-  .aperte-vuoto { color: var(--text-dim); font-size: 0.85rem; font-style: italic; }
+  .aperte-lista { display: flex; flex-direction: column; margin-top: 8px; }
+  .aperte-vuoto { color: var(--dim); font-size: 0.82rem; }
   .op-aperta {
     display: flex; justify-content: space-between; align-items: center;
-    background: var(--bg-card-2); border: 1px solid var(--border); border-radius: 10px;
-    padding: 9px 12px; font-size: 0.85rem;
+    padding: 8px 0; border-top: 1px solid var(--line); font-size: 0.84rem;
   }
-  .dir { font-weight: 700; font-size: 0.72rem; padding: 2px 8px; border-radius: 6px; }
-  .dir-long { background: rgba(53,201,143,.15); color: var(--green); }
-  .dir-short { background: rgba(255,92,114,.15); color: var(--red); }
+  .dir { font-weight: 600; font-size: 0.74rem; }
+  .dir-long { color: var(--green); }
+  .dir-short { color: var(--rust); }
 
-  details.dettagli { margin-top: 14px; border-top: 1px solid var(--border); padding-top: 14px; }
+  details.dettagli { margin-top: 16px; }
   details.dettagli summary {
-    cursor: pointer; color: var(--text-dim); font-size: 0.8rem; font-weight: 650;
-    text-transform: uppercase; letter-spacing: .03em; list-style: none; user-select: none;
+    cursor: pointer; color: var(--dim); font-size: 0.78rem; font-weight: 500;
+    list-style: none; user-select: none;
   }
   details.dettagli summary::-webkit-details-marker { display: none; }
-  details.dettagli summary::before { content: "▸ "; display: inline-block; transition: transform .15s; }
-  details.dettagli[open] summary::before { transform: rotate(90deg); }
-  details.dettagli .dettagli-corpo { margin-top: 14px; }
+  details.dettagli summary::before { content: "+ "; color: var(--amber); font-family: "IBM Plex Mono", monospace; }
+  details.dettagli[open] summary::before { content: "− "; }
+  details.dettagli .dettagli-corpo { margin-top: 12px; }
 
-  table.strumenti { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-  table.strumenti th { text-align: left; color: var(--text-dim); font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: .03em; padding: 6px 8px; border-bottom: 1px solid var(--border); }
-  table.strumenti td { padding: 7px 8px; border-bottom: 1px solid #1a2133; }
-  table.strumenti .mini-barra { display:inline-block; width:60px; height:6px; border-radius:3px; background:#1e2536; overflow:hidden; vertical-align:middle; margin-left:6px; }
-  table.strumenti .mini-barra i { display:block; height:100%; background: var(--green); }
+  table.strumenti { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+  table.strumenti th { text-align: left; color: var(--dim); font-weight: 500; font-size: 0.74rem; padding: 6px 0; border-bottom: 1px solid var(--line); }
+  table.strumenti td { padding: 7px 0; border-bottom: 1px solid var(--line); }
+  table.strumenti th:last-child, table.strumenti td:last-child { text-align: right; }
 
   .conto-reale {
-    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
-    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 16px 20px; margin-bottom: 18px; font-size: 0.9rem;
+    display: flex; flex-direction: column; gap: 6px;
+    padding: 16px 0; margin-bottom: 4px; font-size: 0.85rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
   }
-  .conto-reale .pallino-live { width:9px; height:9px; border-radius:50%; background: var(--green); box-shadow: 0 0 0 3px rgba(53,201,143,.18); }
+  .conto-reale .titolo-riga { display: flex; align-items: center; margin-bottom: 4px; }
+  .conto-reale .riga-dato { display: flex; justify-content: space-between; color: var(--dim); }
+  .conto-reale .riga-dato b { color: var(--paper); font-weight: 500; }
 
-  .storico-wrap { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; margin-top: 6px; }
-  .storico-wrap > summary { margin: 0; font-size: 1.05rem; cursor: pointer; list-style: none; user-select: none; display: flex; align-items: center; gap: 8px; }
+  .storico-wrap { border-top: 1px solid var(--line); padding: 26px 0 0; margin-top: 6px; }
+  .storico-wrap > summary { font-size: 0.95rem; font-weight: 600; cursor: pointer; list-style: none; user-select: none; margin-bottom: 4px; }
   .storico-wrap > summary::-webkit-details-marker { display: none; }
-  .storico-wrap > summary::before { content: "▸"; display: inline-block; transition: transform .15s; color: var(--text-dim); font-size: 0.85rem; }
-  .storico-wrap[open] > summary::before { transform: rotate(90deg); }
-  .storico-corpo { margin-top: 16px; }
-  .filtri { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .storico-wrap > summary::before { content: "+ "; color: var(--amber); font-family: "IBM Plex Mono", monospace; }
+  .storico-wrap[open] > summary::before { content: "− "; }
+  .storico-corpo { margin-top: 14px; }
+  .filtri { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
   .filtro-btn {
-    background: var(--bg-card-2); border: 1px solid var(--border); color: var(--text-dim);
-    padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; transition: .15s;
+    background: transparent; border: 1px solid var(--line); color: var(--dim);
+    font-family: inherit; padding: 5px 11px; border-radius: var(--radius); font-size: 0.76rem; cursor: pointer;
   }
-  .filtro-btn.attivo { background: var(--blue); color: white; border-color: var(--blue); }
-  table.storico { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-  table.storico th { text-align: left; color: var(--text-dim); font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: .03em; padding: 8px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg-card); }
-  table.storico td { padding: 8px; border-bottom: 1px solid #1a2133; white-space: nowrap; }
-  table.storico tbody tr:hover { background: rgba(255,255,255,.02); }
-  .tabella-scroll { max-height: 480px; overflow-y: auto; overflow-x: auto; }
-  table.storico { min-width: 480px; }
-  .esito-badge { font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 6px; }
-  .esito-win { background: rgba(53,201,143,.15); color: var(--green); }
-  .esito-loss { background: rgba(255,92,114,.15); color: var(--red); }
-  .esito-open { background: rgba(255,182,72,.15); color: var(--amber); }
+  .filtro-btn.attivo { border-color: var(--amber); color: var(--amber); }
+  table.storico { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+  table.storico th { text-align: left; color: var(--dim); font-weight: 500; font-size: 0.72rem; padding: 7px 6px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--ink); }
+  table.storico td { padding: 7px 6px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  .tabella-scroll { max-height: 440px; overflow-y: auto; overflow-x: auto; }
+  table.storico { min-width: 460px; }
+  .esito { font-size: 0.78rem; font-weight: 500; }
+  .esito-win { color: var(--green); }
+  .esito-loss { color: var(--rust); }
+  .esito-open { color: var(--amber); }
 
-  footer { text-align: center; color: var(--text-dim); font-size: 0.78rem; margin-top: 30px; line-height: 1.6; }
-  .errore { color: var(--red); text-align:center; padding: 40px 20px; }
+  footer { color: var(--dim); font-size: 0.74rem; margin-top: 36px; line-height: 1.7; border-top: 1px solid var(--line); padding-top: 16px; }
+  .errore { color: var(--rust); padding: 30px 0; }
 </style>
 </head>
 <body>
@@ -183,14 +172,12 @@
     <div class="header-top">
       <div class="header-titolo">
         <img src="favicon.svg" alt="">
-        <div>
-          <h1>Sistema Trading</h1>
-          <div class="sub">Analisi e forward-test automatici. Nessuna operazione reale su denaro vero (tranne dove indicato: conto demo).</div>
-        </div>
+        <h1>Sistema Trading</h1>
       </div>
-      <button class="btn-controllo" id="btn-controllo" onclick="controllaOra()">🔍 Controlla ora</button>
+      <button class="btn-controllo" id="btn-controllo" onclick="controllaOra()">Controlla ora</button>
     </div>
-    <div class="aggiornato" id="aggiornato"><span class="pallino"></span>Caricamento...</div>
+    <div class="sub">Analisi e forward-test automatici. Nessuna operazione reale su denaro vero, tranne dove indicato.</div>
+    <div class="aggiornato" id="aggiornato">Caricamento...</div>
   </header>
 
   <div id="pannello-controllo"></div>
@@ -216,8 +203,6 @@ const fmtData = iso => {
   } catch(e) { return iso; }
 };
 
-// ------------------- PANNELLO DI CONTROLLO -------------------
-
 function calcolaControlli(dati) {
   const controlli = [];
   const ora = Date.now();
@@ -233,9 +218,7 @@ function calcolaControlli(dati) {
   const reale = dati.conto_reale || {};
   controlli.push({
     ok: !!reale.disponibile,
-    testo: reale.disponibile
-      ? "Conto demo reale cTrader raggiungibile"
-      : "Conto demo reale cTrader non raggiungibile in questo aggiornamento"
+    testo: reale.disponibile ? "Conto demo reale cTrader raggiungibile" : "Conto demo reale cTrader non raggiungibile in questo aggiornamento"
   });
 
   const giorniToken = reale.token_giorni_rimasti;
@@ -252,9 +235,7 @@ function calcolaControlli(dati) {
     const dd = dati[chiave]?.drawdown_pct ?? 0;
     controlli.push({
       ok: dd < 20,
-      testo: dd < 20
-        ? `${nome}: drawdown sotto controllo (${dd}%)`
-        : `${nome}: drawdown elevato (${dd}%) — da monitorare con attenzione`
+      testo: dd < 20 ? `${nome}: drawdown sotto controllo (${dd}%)` : `${nome}: drawdown elevato (${dd}%) — da monitorare con attenzione`
     });
   });
 
@@ -264,21 +245,14 @@ function calcolaControlli(dati) {
     .map(([nome]) => nome);
   controlli.push({
     ok: problematici.length === 0,
-    testo: problematici.length === 0
-      ? "Nessuno strumento sistematicamente in perdita"
-      : `Strumenti a 0% di successo su almeno 5 operazioni: ${problematici.join(", ")}`
+    testo: problematici.length === 0 ? "Nessuno strumento sistematicamente in perdita" : `Strumenti a 0% di successo su almeno 5 operazioni: ${problematici.join(", ")}`
   });
 
   const SOGLIA_GIORNI_POSIZIONE = 10;
-  const bloccate = (dati.fronte1?.posizioni_aperte || []).filter(p => {
-    const giorni = (ora - new Date(p.data_apertura)) / 86400000;
-    return giorni > SOGLIA_GIORNI_POSIZIONE;
-  });
+  const bloccate = (dati.fronte1?.posizioni_aperte || []).filter(p => (ora - new Date(p.data_apertura)) / 86400000 > SOGLIA_GIORNI_POSIZIONE);
   controlli.push({
     ok: bloccate.length === 0,
-    testo: bloccate.length === 0
-      ? "Nessuna posizione aperta da troppo tempo"
-      : `Posizione aperta da oltre ${SOGLIA_GIORNI_POSIZIONE} giorni: ${bloccate.map(p => p.strumento).join(", ")}`
+    testo: bloccate.length === 0 ? "Nessuna posizione aperta da troppo tempo" : `Posizione aperta da oltre ${SOGLIA_GIORNI_POSIZIONE} giorni: ${bloccate.map(p => p.strumento).join(", ")}`
   });
 
   return controlli;
@@ -290,18 +264,12 @@ function disegnaPannelloControllo(dati) {
   const tuttoOk = problemi === 0;
 
   const righeHtml = controlli.map(c => `
-    <li>
-      <span class="pc-segno ${c.ok ? 'ok' : 'ko'}">${c.ok ? '✓' : '✕'}</span>
-      <span>${c.testo}</span>
-    </li>`).join("");
+    <li><span class="pc-segno ${c.ok ? 'ok' : 'ko'}">${c.ok ? '+' : '−'}</span><span>${c.testo}</span></li>`).join("");
 
   document.getElementById("pannello-controllo").innerHTML = `
-    <div class="pannello-controllo">
-      <div class="pc-stato">
-        <span class="pc-pallino ${tuttoOk ? 'ok' : 'warn'}"></span>
-        <span class="pc-titolo">${tuttoOk ? 'Tutto a posto' : (problemi === 1 ? '1 cosa da controllare' : problemi + ' cose da controllare')}</span>
-      </div>
-      <div class="pc-sotto">Controllo eseguito sui dati dell'ultimo aggiornamento (${fmtData(dati.generato_il)})</div>
+    <div class="pannello-controllo ${tuttoOk ? 'ok' : ''}">
+      <div class="pc-titolo">${tuttoOk ? 'Tutto a posto' : (problemi === 1 ? '1 cosa da controllare' : problemi + ' cose da controllare')}</div>
+      <div class="pc-sotto">controllo sui dati delle ${fmtData(dati.generato_il)}</div>
       <ul class="pc-lista">${righeHtml}</ul>
     </div>`;
 }
@@ -309,14 +277,12 @@ function disegnaPannelloControllo(dati) {
 async function controllaOra() {
   const btn = document.getElementById("btn-controllo");
   btn.disabled = true;
-  btn.textContent = "Controllo in corso...";
+  btn.textContent = "...";
   await carica();
   btn.disabled = false;
-  btn.textContent = "🔍 Controlla ora";
+  btn.textContent = "Controlla ora";
   document.getElementById("pannello-controllo").scrollIntoView({behavior: "smooth", block: "start"});
 }
-
-// ------------------- GRAFICI E SEZIONI -------------------
 
 function costruisciGraficoCapitale(canvasId, punti, colore) {
   const ctx = document.getElementById(canvasId);
@@ -324,93 +290,56 @@ function costruisciGraficoCapitale(canvasId, punti, colore) {
   const valori = punti.map(p => p.capitale);
   new Chart(ctx, {
     type: "line",
-    data: {
-      labels,
-      datasets: [{
-        data: valori,
-        borderColor: colore,
-        backgroundColor: colore + "22",
-        fill: true,
-        tension: 0.25,
-        pointRadius: 0,
-        borderWidth: 2,
-      }]
-    },
+    data: { labels, datasets: [{ data: valori, borderColor: colore, backgroundColor: colore + "18", fill: true, tension: 0.2, pointRadius: 0, borderWidth: 1.5 }] },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => EUR(c.parsed.y) } } },
-      scales: {
-        x: { display: false },
-        y: { ticks: { color: "#8b97ad", font: { size: 10 } }, grid: { color: "#1a2133" } }
-      }
+      scales: { x: { display: false }, y: { ticks: { color: "#8c8f77", font: { family: "IBM Plex Mono", size: 10 } }, grid: { color: "#2b2e22" } } }
     }
   });
 }
 
-function sezioneFronte(chiave, dati, colore, badgeClasse, descrizione) {
+function sezioneFronte(chiave, dati, colore, descrizione) {
   const successoNum = dati.percentuale_successo ?? 0;
   const strumentiRighe = dati.per_strumento ? Object.entries(dati.per_strumento).map(([nome, s]) => `
-    <tr>
-      <td>${nome}</td>
-      <td>${s.vinte} / ${s.perse}</td>
-      <td>${s.percentuale_successo}%<span class="mini-barra"><i style="width:${s.percentuale_successo}%"></i></span></td>
-    </tr>`).join("") : "";
+    <tr><td>${nome}</td><td class="num">${s.vinte}/${s.perse}</td><td class="num">${s.percentuale_successo}%</td></tr>`).join("") : "";
 
   let mensileRighe = "";
   if (dati.storico_mensile) {
     mensileRighe = dati.storico_mensile.map(m => `
       <tr>
-        <td>${m.mese}</td>
-        <td class="${classeVar(m.rendimento_pct)}">${PCT(m.rendimento_pct)}</td>
-        <td>${m.in_mercato !== undefined ? `${m.in_mercato}/${m.totale} in mercato` : `${m.long} long / ${m.short} short`}</td>
-        <td>${EUR(m.capitale_dopo)}</td>
+        <td class="num">${m.mese}</td>
+        <td class="num ${classeVar(m.rendimento_pct)}">${PCT(m.rendimento_pct)}</td>
+        <td class="num">${m.in_mercato !== undefined ? `${m.in_mercato}/${m.totale}` : `${m.long}L/${m.short}S`}</td>
+        <td class="num">${EUR(m.capitale_dopo)}</td>
       </tr>`).join("");
   }
 
   const aperte = dati.posizioni_aperte || [];
   const aperteHtml = aperte.length ? aperte.map(p => `
-    <div class="op-aperta">
-      <span>${p.strumento}</span>
-      <span class="dir ${p.direzione === 'LONG' ? 'dir-long' : 'dir-short'}">${p.direzione}</span>
-    </div>`).join("") : '<div class="aperte-vuoto">Nessuna posizione aperta al momento</div>';
+    <div class="op-aperta"><span>${p.strumento}</span><span class="dir ${p.direzione === 'LONG' ? 'dir-long' : 'dir-short'}">${p.direzione}</span></div>`).join("")
+    : '<div class="aperte-vuoto">nessuna posizione aperta al momento</div>';
 
-  const etichettaDettaglio = dati.per_strumento ? "Dettaglio per strumento" : "Dettaglio mensile";
+  const etichettaDettaglio = dati.per_strumento ? "dettaglio per strumento" : "dettaglio mensile";
   const tabellaDettaglio = dati.per_strumento ? `
-    <table class="strumenti">
-      <thead><tr><th>Strumento</th><th>V / P</th><th>Successo</th></tr></thead>
-      <tbody>${strumentiRighe}</tbody>
-    </table>` : `
-    <table class="strumenti">
-      <thead><tr><th>Mese</th><th>Rend.</th><th>Posizioni</th><th>Capitale</th></tr></thead>
-      <tbody>${mensileRighe}</tbody>
-    </table>`;
+    <table class="strumenti"><thead><tr><th>strumento</th><th>v/p</th><th>successo</th></tr></thead><tbody>${strumentiRighe}</tbody></table>` : `
+    <table class="strumenti"><thead><tr><th>mese</th><th>rend.</th><th>posizioni</th><th>capitale</th></tr></thead><tbody>${mensileRighe}</tbody></table>`;
 
   return `
   <section class="fronte">
-    <div class="fronte-header">
-      <h2><span class="badge ${badgeClasse}"></span>${dati.nome}</h2>
-    </div>
+    <div class="fronte-header"><span class="puntino ${colore}"></span><h2>${dati.nome}</h2></div>
     <div class="fronte-sub">${descrizione}</div>
-
     <div class="grafico-box"><canvas id="grafico-${chiave}"></canvas></div>
-
     <div class="stat-riga">
-      <div class="stat"><div class="n">${EUR(dati.capitale_attuale)}</div><div class="l">Capitale</div></div>
-      <div class="stat"><div class="n ${classeVar(dati.rendimento_pct)}">${PCT(dati.rendimento_pct)}</div><div class="l">Rendimento</div></div>
-      <div class="stat"><div class="n">${dati.drawdown_pct}%</div><div class="l">Drawdown dal picco</div></div>
-      <div class="stat"><div class="n">${successoNum}%</div><div class="l">Successo totale</div></div>
+      <div class="stat"><div class="n num">${EUR(dati.capitale_attuale)}</div><div class="l">capitale</div></div>
+      <div class="stat"><div class="n num ${classeVar(dati.rendimento_pct)}">${PCT(dati.rendimento_pct)}</div><div class="l">rendimento</div></div>
+      <div class="stat"><div class="n num">${dati.drawdown_pct}%</div><div class="l">drawdown dal picco</div></div>
+      <div class="stat"><div class="n num">${successoNum}%</div><div class="l">successo totale</div></div>
     </div>
     <div class="barra-successo"><div class="riempi" style="width:${successoNum}%"></div></div>
-
-    <div style="margin-top:4px;">
-      <div class="l" style="color:var(--text-dim); font-size:0.75rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:8px;">Posizioni aperte ora</div>
-      <div class="aperte-lista">${aperteHtml}</div>
-    </div>
-
-    <details class="dettagli">
-      <summary>${etichettaDettaglio}</summary>
-      <div class="dettagli-corpo">${tabellaDettaglio}</div>
-    </details>
+    <div class="l" style="color:var(--dim); font-size:0.75rem; margin-bottom:4px;">posizioni aperte ora</div>
+    <div class="aperte-lista">${aperteHtml}</div>
+    <details class="dettagli"><summary>${etichettaDettaglio}</summary><div class="dettagli-corpo">${tabellaDettaglio}</div></details>
   </section>`;
 }
 
@@ -418,34 +347,31 @@ function renderStorico(operazioni) {
   const wrap = document.createElement("details");
   wrap.className = "storico-wrap";
   wrap.innerHTML = `
-    <summary>📜 Storico operazioni — Fronte 1</summary>
+    <summary>storico operazioni — fronte 1</summary>
     <div class="storico-corpo">
       <div class="filtri" id="filtri"></div>
       <div class="tabella-scroll">
-        <table class="storico">
-          <thead><tr><th>Strumento</th><th>Direzione</th><th>Apertura</th><th>Chiusura</th><th>Esito</th></tr></thead>
-          <tbody id="corpo-storico"></tbody>
-        </table>
+        <table class="storico"><thead><tr><th>strumento</th><th>direzione</th><th>apertura</th><th>chiusura</th><th>esito</th></tr></thead><tbody id="corpo-storico"></tbody></table>
       </div>
     </div>`;
 
-  const strumenti = ["Tutti", ...new Set(operazioni.map(o => o.strumento))];
+  const strumenti = ["tutti", ...new Set(operazioni.map(o => o.strumento))];
   const filtriEl = wrap.querySelector("#filtri");
-  let filtroAttivo = "Tutti";
+  let filtroAttivo = "tutti";
 
   function disegnaRighe() {
     const corpo = wrap.querySelector("#corpo-storico");
-    const filtrate = filtroAttivo === "Tutti" ? operazioni : operazioni.filter(o => o.strumento === filtroAttivo);
+    const filtrate = filtroAttivo === "tutti" ? operazioni : operazioni.filter(o => o.strumento === filtroAttivo);
     corpo.innerHTML = filtrate.map(o => {
       let esitoHtml;
-      if (o.stato === "aperta") esitoHtml = '<span class="esito-badge esito-open">APERTA</span>';
-      else if (o.esito === "take profit") esitoHtml = '<span class="esito-badge esito-win">TAKE PROFIT</span>';
-      else esitoHtml = '<span class="esito-badge esito-loss">STOP LOSS</span>';
+      if (o.stato === "aperta") esitoHtml = '<span class="esito esito-open">aperta</span>';
+      else if (o.esito === "take profit") esitoHtml = '<span class="esito esito-win">take profit</span>';
+      else esitoHtml = '<span class="esito esito-loss">stop loss</span>';
       return `<tr>
         <td>${o.strumento}</td>
-        <td><span class="dir ${o.direzione === 'LONG' ? 'dir-long' : 'dir-short'}">${o.direzione}</span></td>
-        <td>${fmtData(o.data_apertura)}</td>
-        <td>${fmtData(o.data_chiusura)}</td>
+        <td><span class="dir ${o.direzione === 'LONG' ? 'dir-long' : 'dir-short'}">${o.direzione.toLowerCase()}</span></td>
+        <td class="num">${fmtData(o.data_apertura)}</td>
+        <td class="num">${fmtData(o.data_chiusura)}</td>
         <td>${esitoHtml}</td>
       </tr>`;
     }).join("");
@@ -453,7 +379,7 @@ function renderStorico(operazioni) {
 
   strumenti.forEach(s => {
     const btn = document.createElement("button");
-    btn.className = "filtro-btn" + (s === "Tutti" ? " attivo" : "");
+    btn.className = "filtro-btn" + (s === "tutti" ? " attivo" : "");
     btn.textContent = s;
     btn.onclick = (ev) => {
       ev.preventDefault();
@@ -474,77 +400,58 @@ async function carica() {
     const risposta = await fetch("dashboard_data.json?_=" + Date.now());
     const dati = await risposta.json();
 
-    document.getElementById("aggiornato").innerHTML =
-      `<span class="pallino"></span>Ultimo aggiornamento: ${fmtData(dati.generato_il)}`;
+    document.getElementById("aggiornato").innerHTML = `<span class="pallino-live"></span>ultimo aggiornamento ${fmtData(dati.generato_il)}`;
 
     disegnaPannelloControllo(dati);
 
     const contenuto = document.getElementById("contenuto");
-
     const reale = dati.conto_reale || {};
-    const realeHtml = reale.disponibile ? `
-      <div class="conto-reale">
-        <span class="pallino-live"></span>
-        <strong>Conto demo reale (cTrader)</strong>
-        <span style="color:var(--text-dim)">Saldo:</span> <strong>${EUR(reale.saldo)}</strong>
-        <span style="color:var(--text-dim)">·</span>
-        <span style="color:var(--text-dim)">Strumenti collegati: ${reale.strumenti_collegati.join(", ")}</span>
-        <span style="color:var(--text-dim)">·</span>
-        <span style="color:var(--text-dim)">Posizioni aperte: ${reale.posizioni_aperte.length}</span>
-      </div>` : `
-      <div class="conto-reale"><span style="color:var(--text-dim)">Conto reale non raggiungibile in questo aggiornamento.</span></div>`;
-
     const capitaleTotale = dati.fronte1.capitale_attuale + dati.fronte3.capitale_attuale + dati.fronte4.capitale_attuale;
 
+    const realeHtml = reale.disponibile ? `
+      <div class="conto-reale">
+        <div class="titolo-riga"><span class="pallino-live"></span><strong>conto demo reale — cTrader</strong></div>
+        <div class="riga-dato"><span>saldo</span><b class="num">${EUR(reale.saldo)}</b></div>
+        <div class="riga-dato"><span>strumenti collegati</span><b>${reale.strumenti_collegati.join(", ")}</b></div>
+        <div class="riga-dato"><span>posizioni aperte</span><b class="num">${reale.posizioni_aperte.length}</b></div>
+      </div>` : `<div class="conto-reale"><span style="color:var(--dim)">conto reale non raggiungibile in questo aggiornamento</span></div>`;
+
     contenuto.innerHTML = `
-      <div class="griglia-overview">
-        <div class="card-overview principale">
-          <div class="etichetta">Capitale virtuale totale</div>
-          <div class="valore">${EUR(capitaleTotale)}</div>
-          <div class="variazione neutro">Fronte 1 + Fronte 3 + Fronte 4</div>
-        </div>
-        <div class="card-overview">
-          <div class="etichetta">Fronte 1 — Virtuale</div>
-          <div class="valore">${EUR(dati.fronte1.capitale_attuale)}</div>
-          <div class="variazione ${classeVar(dati.fronte1.rendimento_pct)}">${PCT(dati.fronte1.rendimento_pct)}</div>
-        </div>
-        <div class="card-overview">
-          <div class="etichetta">Fronte 3 — Momentum</div>
-          <div class="valore">${EUR(dati.fronte3.capitale_attuale)}</div>
-          <div class="variazione ${classeVar(dati.fronte3.rendimento_pct)}">${PCT(dati.fronte3.rendimento_pct)}</div>
-        </div>
-        <div class="card-overview">
-          <div class="etichetta">Fronte 4 — Lungo termine</div>
-          <div class="valore">${EUR(dati.fronte4.capitale_attuale)}</div>
-          <div class="variazione ${classeVar(dati.fronte4.rendimento_pct)}">${PCT(dati.fronte4.rendimento_pct)}</div>
-        </div>
-        <div class="card-overview">
-          <div class="etichetta">Conto demo reale</div>
-          <div class="valore">${EUR(reale.saldo)}</div>
-          <div class="variazione neutro">GBP/JPY su cTrader</div>
+      <div class="hero">
+        <div class="etichetta">capitale virtuale totale</div>
+        <div class="valore num">${EUR(capitaleTotale)}</div>
+        <div class="scomposizione">
+          <div class="riga">
+            <span class="etichetta-riga"><span class="puntino blu"></span>fronte 1 — incrocio medie mobili</span>
+            <span class="numeri"><span class="num">${EUR(dati.fronte1.capitale_attuale)}</span><span class="var num ${classeVar(dati.fronte1.rendimento_pct)}">${PCT(dati.fronte1.rendimento_pct)}</span></span>
+          </div>
+          <div class="riga">
+            <span class="etichetta-riga"><span class="puntino viola"></span>fronte 3 — time series momentum</span>
+            <span class="numeri"><span class="num">${EUR(dati.fronte3.capitale_attuale)}</span><span class="var num ${classeVar(dati.fronte3.rendimento_pct)}">${PCT(dati.fronte3.rendimento_pct)}</span></span>
+          </div>
+          <div class="riga">
+            <span class="etichetta-riga"><span class="puntino verde"></span>fronte 4 — trend filter 10 mesi</span>
+            <span class="numeri"><span class="num">${EUR(dati.fronte4.capitale_attuale)}</span><span class="var num ${classeVar(dati.fronte4.rendimento_pct)}">${PCT(dati.fronte4.rendimento_pct)}</span></span>
+          </div>
         </div>
       </div>
 
       ${realeHtml}
 
-      ${sezioneFronte("f1", dati.fronte1, "#4f8bff", "badge-blu",
-        "5 strumenti, strategia Incrocio Medie Mobili. GBP/JPY eseguito anche realmente su conto demo.")}
-      ${sezioneFronte("f3", dati.fronte3, "#b98bff", "badge-viola",
-        "108 strumenti in portafoglio, ribilanciato una volta al mese (Time Series Momentum).")}
-      ${sezioneFronte("f4", dati.fronte4, "#35c98f", "badge-verde",
-        "Lungo termine: long solo sopra la media mobile a 10 mesi, altrimenti liquidità (Trend filter, Faber 2007).")}
+      ${sezioneFronte("f1", dati.fronte1, "blu", "5 strumenti, strategia Incrocio Medie Mobili. GBP/JPY eseguito anche realmente su conto demo.")}
+      ${sezioneFronte("f3", dati.fronte3, "viola", "108 strumenti in portafoglio, ribilanciato una volta al mese (Time Series Momentum).")}
+      ${sezioneFronte("f4", dati.fronte4, "verde", "Lungo termine: long solo sopra la media mobile a 10 mesi, altrimenti liquidità (Trend filter, Faber 2007).")}
     `;
 
-    costruisciGraficoCapitale("grafico-f1", dati.fronte1.curva_capitale, "#4f8bff");
-    costruisciGraficoCapitale("grafico-f3", dati.fronte3.curva_capitale, "#b98bff");
-    costruisciGraficoCapitale("grafico-f4", dati.fronte4.curva_capitale, "#35c98f");
+    costruisciGraficoCapitale("grafico-f1", dati.fronte1.curva_capitale, "#5b8def");
+    costruisciGraficoCapitale("grafico-f3", dati.fronte3.curva_capitale, "#b18cf2");
+    costruisciGraficoCapitale("grafico-f4", dati.fronte4.curva_capitale, "#6fcf97");
 
     contenuto.appendChild(renderStorico(dati.fronte1.storico_operazioni));
 
   } catch (errore) {
-    document.getElementById("contenuto").innerHTML =
-      `<div class="errore">Non riesco a caricare i dati (${errore.message}). Riprova tra qualche minuto.</div>`;
-    document.getElementById("aggiornato").textContent = "Errore di caricamento";
+    document.getElementById("contenuto").innerHTML = `<div class="errore">Non riesco a caricare i dati (${errore.message}). Riprova tra qualche minuto.</div>`;
+    document.getElementById("aggiornato").textContent = "errore di caricamento";
   }
 }
 
