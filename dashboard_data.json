@@ -1,15 +1,15 @@
 {
-  "generato_il": "2026-10-29T00:42:12.746419+00:00",
+  "generato_il": "2026-10-29T06:52:30.275521+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
-    "capitale_attuale": 1966.7,
+    "capitale_attuale": 1944.77,
     "capitale_massimo": 2229.59,
-    "rendimento_pct": -1.67,
-    "drawdown_pct": 11.79,
+    "rendimento_pct": -2.76,
+    "drawdown_pct": 12.77,
     "operazioni_vinte": 20,
-    "operazioni_perse": 38,
-    "percentuale_successo": 34.5,
+    "operazioni_perse": 39,
+    "percentuale_successo": 33.9,
     "per_strumento": {
       "Oro": {
         "vinte": 1,
@@ -33,8 +33,8 @@
       },
       "Hang Seng": {
         "vinte": 3,
-        "perse": 4,
-        "percentuale_successo": 42.9
+        "perse": 5,
+        "percentuale_successo": 37.5
       },
       "ETF Petrolio & Gas": {
         "vinte": 6,
@@ -42,16 +42,7 @@
         "percentuale_successo": 46.2
       }
     },
-    "posizioni_aperte": [
-      {
-        "strumento": "Hang Seng",
-        "direzione": "SHORT",
-        "data_apertura": "2026-10-27T15:30:00+08:00",
-        "prezzo_ingresso": 23041.3203125,
-        "stop_loss": 23173.59151785714,
-        "take_profit": 22776.777901785714
-      }
-    ],
+    "posizioni_aperte": [],
     "curva_capitale": [
       {
         "data": null,
@@ -288,6 +279,10 @@
       {
         "data": "2026-10-27T14:00:00+00:00",
         "capitale": 1966.7
+      },
+      {
+        "data": "2026-10-29T09:30:00+08:00",
+        "capitale": 1944.77
       }
     ],
     "storico_operazioni": [
@@ -296,9 +291,9 @@
         "strumento": "Hang Seng",
         "direzione": "SHORT",
         "data_apertura": "2026-10-27T15:30:00+08:00",
-        "data_chiusura": null,
-        "stato": "aperta",
-        "esito": null
+        "data_chiusura": "2026-10-29T09:30:00+08:00",
+        "stato": "chiusa",
+        "esito": "stop loss"
       },
       {
         "id": 71,
@@ -1013,6 +1008,6 @@
     "strumenti_collegati": [
       "GBP/JPY"
     ],
-    "token_giorni_rimasti": 9.9
+    "token_giorni_rimasti": 9.6
   }
 }
