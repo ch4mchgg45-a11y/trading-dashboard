@@ -1,5 +1,5 @@
 {
-  "generato_il": "2026-11-01T06:41:26.942452+00:00",
+  "generato_il": "2026-11-01T14:10:55.704892+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
@@ -943,13 +943,13 @@
   "fronte3": {
     "nome": "Time Series Momentum (portafoglio)",
     "capitale_iniziale": 2000.0,
-    "capitale_attuale": 1982.85,
+    "capitale_attuale": 1959.27,
     "capitale_massimo": 2000.0,
-    "rendimento_pct": -0.86,
-    "drawdown_pct": 0.86,
-    "mesi_processati": 2,
+    "rendimento_pct": -2.04,
+    "drawdown_pct": 2.04,
+    "mesi_processati": 3,
     "mesi_positivi": 0,
-    "mesi_negativi": 2,
+    "mesi_negativi": 3,
     "percentuale_successo": 0.0,
     "curva_capitale": [
       {
@@ -963,9 +963,20 @@
       {
         "data": "2026-09",
         "capitale": 1982.85
+      },
+      {
+        "data": "2026-10",
+        "capitale": 1959.27
       }
     ],
     "storico_mensile": [
+      {
+        "mese": "2026-10",
+        "rendimento_pct": -1.19,
+        "long": 70,
+        "short": 38,
+        "capitale_dopo": 1959.27
+      },
       {
         "mese": "2026-09",
         "rendimento_pct": -0.34,
@@ -985,13 +996,13 @@
   "fronte4": {
     "nome": "Trend filter 10 mesi (lungo termine)",
     "capitale_iniziale": 2000.0,
-    "capitale_attuale": 1975.49,
+    "capitale_attuale": 1965.92,
     "capitale_massimo": 2000.0,
-    "rendimento_pct": -1.23,
-    "drawdown_pct": 1.23,
-    "mesi_processati": 1,
+    "rendimento_pct": -1.7,
+    "drawdown_pct": 1.7,
+    "mesi_processati": 2,
     "mesi_positivi": 0,
-    "mesi_negativi": 1,
+    "mesi_negativi": 2,
     "percentuale_successo": 0.0,
     "curva_capitale": [
       {
@@ -1001,9 +1012,20 @@
       {
         "data": "2026-09",
         "capitale": 1975.49
+      },
+      {
+        "data": "2026-10",
+        "capitale": 1965.92
       }
     ],
     "storico_mensile": [
+      {
+        "mese": "2026-10",
+        "rendimento_pct": -0.48,
+        "in_mercato": 61,
+        "totale": 108,
+        "capitale_dopo": 1965.92
+      },
       {
         "mese": "2026-09",
         "rendimento_pct": -1.23,
@@ -1021,6 +1043,6 @@
     "strumenti_collegati": [
       "GBP/JPY"
     ],
-    "token_giorni_rimasti": 6.6
+    "token_giorni_rimasti": 6.3
   }
 }
