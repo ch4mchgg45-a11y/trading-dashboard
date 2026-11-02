@@ -1,5 +1,5 @@
 {
-  "generato_il": "2026-11-01T22:58:58.805023+00:00",
+  "generato_il": "2026-11-02T02:15:23.564962+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
@@ -42,7 +42,16 @@
         "percentuale_successo": 46.2
       }
     },
-    "posizioni_aperte": [],
+    "posizioni_aperte": [
+      {
+        "strumento": "GBP/JPY",
+        "direzione": "LONG",
+        "data_apertura": "2026-11-02T01:00:00+00:00",
+        "prezzo_ingresso": 211.25599670410156,
+        "stop_loss": 210.77920968191964,
+        "take_profit": 212.2095707484654
+      }
+    ],
     "curva_capitale": [
       {
         "data": null,
@@ -290,6 +299,15 @@
       }
     ],
     "storico_operazioni": [
+      {
+        "id": 73,
+        "strumento": "GBP/JPY",
+        "direzione": "LONG",
+        "data_apertura": "2026-11-02T01:00:00+00:00",
+        "data_chiusura": null,
+        "stato": "aperta",
+        "esito": null
+      },
       {
         "id": 72,
         "strumento": "GBP/JPY",
@@ -1039,10 +1057,15 @@
     "disponibile": true,
     "broker": "Pepperstone (cTrader) - CONTO DEMO, nessun soldo vero",
     "saldo": 958.7,
-    "posizioni_aperte": [],
+    "posizioni_aperte": [
+      {
+        "strumento": "GBPJPY",
+        "direzione": "LONG"
+      }
+    ],
     "strumenti_collegati": [
       "GBP/JPY"
     ],
-    "token_giorni_rimasti": 6.0
+    "token_giorni_rimasti": 5.8
   }
 }
