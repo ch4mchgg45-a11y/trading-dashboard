@@ -1,15 +1,15 @@
 {
-  "generato_il": "2026-11-04T10:43:05.937512+00:00",
+  "generato_il": "2026-11-04T18:32:53.463494+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
-    "capitale_attuale": 2019.87,
+    "capitale_attuale": 2059.35,
     "capitale_massimo": 2229.59,
-    "rendimento_pct": 0.99,
-    "drawdown_pct": 9.41,
-    "operazioni_vinte": 22,
+    "rendimento_pct": 2.97,
+    "drawdown_pct": 7.64,
+    "operazioni_vinte": 23,
     "operazioni_perse": 39,
-    "percentuale_successo": 36.1,
+    "percentuale_successo": 37.1,
     "per_strumento": {
       "Oro": {
         "vinte": 1,
@@ -37,21 +37,12 @@
         "percentuale_successo": 37.5
       },
       "ETF Petrolio & Gas": {
-        "vinte": 6,
+        "vinte": 7,
         "perse": 7,
-        "percentuale_successo": 46.2
+        "percentuale_successo": 50.0
       }
     },
-    "posizioni_aperte": [
-      {
-        "strumento": "ETF Petrolio & Gas",
-        "direzione": "SHORT",
-        "data_apertura": "2026-11-02T13:30:00-05:00",
-        "prezzo_ingresso": 194.33999633789062,
-        "stop_loss": 197.33407974243164,
-        "take_profit": 188.3518295288086
-      }
-    ],
+    "posizioni_aperte": [],
     "curva_capitale": [
       {
         "data": null,
@@ -300,6 +291,10 @@
       {
         "data": "2026-11-03T09:00:00+00:00",
         "capitale": 2019.87
+      },
+      {
+        "data": "2026-11-04T09:30:00-05:00",
+        "capitale": 2059.35
       }
     ],
     "storico_operazioni": [
@@ -308,9 +303,9 @@
         "strumento": "ETF Petrolio & Gas",
         "direzione": "SHORT",
         "data_apertura": "2026-11-02T13:30:00-05:00",
-        "data_chiusura": null,
-        "stato": "aperta",
-        "esito": null
+        "data_chiusura": "2026-11-04T09:30:00-05:00",
+        "stato": "chiusa",
+        "esito": "take profit"
       },
       {
         "id": 73,
@@ -1074,6 +1069,6 @@
     "strumenti_collegati": [
       "GBP/JPY"
     ],
-    "token_giorni_rimasti": 3.5
+    "token_giorni_rimasti": 3.2
   }
 }
