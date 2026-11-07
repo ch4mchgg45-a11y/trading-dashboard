@@ -1,5 +1,5 @@
 {
-  "generato_il": "2026-11-07T19:35:23.906270+00:00",
+  "generato_il": "2026-11-07T22:57:33.757135+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
@@ -1062,13 +1062,7 @@
     ]
   },
   "conto_reale": {
-    "disponibile": true,
-    "broker": "Pepperstone (cTrader) - CONTO DEMO, nessun soldo vero",
-    "saldo": 963.61,
-    "posizioni_aperte": [],
-    "strumenti_collegati": [
-      "GBP/JPY"
-    ],
-    "token_giorni_rimasti": 0.1
+    "disponibile": false,
+    "token_giorni_rimasti": -0.03246886576388889
   }
 }
