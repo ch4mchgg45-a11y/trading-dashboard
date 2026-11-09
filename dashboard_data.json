@@ -1,5 +1,5 @@
 {
-  "generato_il": "2026-11-09T00:40:53.358082+00:00",
+  "generato_il": "2026-11-09T07:48:37.615725+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
@@ -1063,6 +1063,6 @@
   },
   "conto_reale": {
     "disponibile": false,
-    "token_giorni_rimasti": -1.1042235126504631
+    "token_giorni_rimasti": -1.401263529826389
   }
 }
