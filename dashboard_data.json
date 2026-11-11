@@ -1,15 +1,15 @@
 {
-  "generato_il": "2026-11-11T09:47:14.267211+00:00",
+  "generato_il": "2026-11-11T17:49:01.976790+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
-    "capitale_attuale": 2059.35,
+    "capitale_attuale": 2098.2,
     "capitale_massimo": 2229.59,
-    "rendimento_pct": 2.97,
-    "drawdown_pct": 7.64,
-    "operazioni_vinte": 23,
+    "rendimento_pct": 4.91,
+    "drawdown_pct": 5.89,
+    "operazioni_vinte": 24,
     "operazioni_perse": 39,
-    "percentuale_successo": 37.1,
+    "percentuale_successo": 38.1,
     "per_strumento": {
       "Oro": {
         "vinte": 1,
@@ -22,9 +22,9 @@
         "percentuale_successo": 27.3
       },
       "GBP/JPY": {
-        "vinte": 12,
+        "vinte": 13,
         "perse": 15,
-        "percentuale_successo": 44.4
+        "percentuale_successo": 46.4
       },
       "Lululemon": {
         "vinte": 0,
@@ -54,10 +54,10 @@
       {
         "strumento": "GBP/JPY",
         "direzione": "LONG",
-        "data_apertura": "2026-11-11T08:00:00+00:00",
-        "prezzo_ingresso": 211.6479949951172,
-        "stop_loss": 211.3303168160575,
-        "take_profit": 212.2833513532366
+        "data_apertura": "2026-11-11T16:00:00+00:00",
+        "prezzo_ingresso": 212.2779998779297,
+        "stop_loss": 211.9325714111328,
+        "take_profit": 212.96885681152344
       }
     ],
     "curva_capitale": [
@@ -312,17 +312,30 @@
       {
         "data": "2026-11-04T09:30:00-05:00",
         "capitale": 2059.35
+      },
+      {
+        "data": "2026-11-11T15:00:00+00:00",
+        "capitale": 2098.2
       }
     ],
     "storico_operazioni": [
+      {
+        "id": 77,
+        "strumento": "GBP/JPY",
+        "direzione": "LONG",
+        "data_apertura": "2026-11-11T16:00:00+00:00",
+        "data_chiusura": null,
+        "stato": "aperta",
+        "esito": null
+      },
       {
         "id": 76,
         "strumento": "GBP/JPY",
         "direzione": "LONG",
         "data_apertura": "2026-11-11T08:00:00+00:00",
-        "data_chiusura": null,
-        "stato": "aperta",
-        "esito": null
+        "data_chiusura": "2026-11-11T15:00:00+00:00",
+        "stato": "chiusa",
+        "esito": "take profit"
       },
       {
         "id": 75,
@@ -1098,6 +1111,6 @@
   },
   "conto_reale": {
     "disponibile": false,
-    "token_giorni_rimasti": 28.732329522025463
+    "token_giorni_rimasti": 28.39774954975694
   }
 }
