@@ -1,5 +1,5 @@
 {
-  "generato_il": "2026-11-16T09:19:20.982560+00:00",
+  "generato_il": "2026-11-16T19:46:54.663758+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
@@ -42,7 +42,16 @@
         "percentuale_successo": 53.3
       }
     },
-    "posizioni_aperte": [],
+    "posizioni_aperte": [
+      {
+        "strumento": "ETF Petrolio & Gas",
+        "direzione": "SHORT",
+        "data_apertura": "2026-11-16T13:30:00-05:00",
+        "prezzo_ingresso": 180.36500549316406,
+        "stop_loss": 182.25699016026087,
+        "take_profit": 176.58103615897042
+      }
+    ],
     "curva_capitale": [
       {
         "data": null,
@@ -310,6 +319,15 @@
       }
     ],
     "storico_operazioni": [
+      {
+        "id": 78,
+        "strumento": "ETF Petrolio & Gas",
+        "direzione": "SHORT",
+        "data_apertura": "2026-11-16T13:30:00-05:00",
+        "data_chiusura": null,
+        "stato": "aperta",
+        "esito": null
+      },
       {
         "id": 77,
         "strumento": "GBP/JPY",
@@ -1102,6 +1120,6 @@
   },
   "conto_reale": {
     "disponibile": false,
-    "token_giorni_rimasti": 23.7516962484375
+    "token_giorni_rimasti": 23.315889749606484
   }
 }
