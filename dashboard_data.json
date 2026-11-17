@@ -1,15 +1,15 @@
 {
-  "generato_il": "2026-11-17T11:38:12.349255+00:00",
+  "generato_il": "2026-11-17T20:41:51.434616+00:00",
   "fronte1": {
     "nome": "Incrocio Medie Mobili",
     "capitale_iniziale": 2000.0,
-    "capitale_attuale": 2116.02,
+    "capitale_attuale": 2094.59,
     "capitale_massimo": 2229.59,
-    "rendimento_pct": 5.8,
-    "drawdown_pct": 5.09,
+    "rendimento_pct": 4.73,
+    "drawdown_pct": 6.06,
     "operazioni_vinte": 25,
-    "operazioni_perse": 40,
-    "percentuale_successo": 38.5,
+    "operazioni_perse": 41,
+    "percentuale_successo": 37.9,
     "per_strumento": {
       "Oro": {
         "vinte": 1,
@@ -38,20 +38,11 @@
       },
       "ETF Petrolio & Gas": {
         "vinte": 8,
-        "perse": 7,
-        "percentuale_successo": 53.3
+        "perse": 8,
+        "percentuale_successo": 50.0
       }
     },
-    "posizioni_aperte": [
-      {
-        "strumento": "ETF Petrolio & Gas",
-        "direzione": "SHORT",
-        "data_apertura": "2026-11-16T13:30:00-05:00",
-        "prezzo_ingresso": 180.36500549316406,
-        "stop_loss": 182.25699016026087,
-        "take_profit": 176.58103615897042
-      }
-    ],
+    "posizioni_aperte": [],
     "curva_capitale": [
       {
         "data": null,
@@ -316,6 +307,10 @@
       {
         "data": "2026-11-12T09:30:00-05:00",
         "capitale": 2116.02
+      },
+      {
+        "data": "2026-11-17T09:30:00-05:00",
+        "capitale": 2094.59
       }
     ],
     "storico_operazioni": [
@@ -324,9 +319,9 @@
         "strumento": "ETF Petrolio & Gas",
         "direzione": "SHORT",
         "data_apertura": "2026-11-16T13:30:00-05:00",
-        "data_chiusura": null,
-        "stato": "aperta",
-        "esito": null
+        "data_chiusura": "2026-11-17T09:30:00-05:00",
+        "stato": "chiusa",
+        "esito": "stop loss"
       },
       {
         "id": 77,
@@ -1120,6 +1115,6 @@
   },
   "conto_reale": {
     "disponibile": false,
-    "token_giorni_rimasti": 22.655268375150463
+    "token_giorni_rimasti": 22.277732679282405
   }
 }
